@@ -15,8 +15,6 @@ require(devtools)
 install_github("esteinig/netview")
 ```
 
-
-
 ###Dependencies
 
 * Mutual nearest neighbour graphs: [cccd]()
@@ -34,33 +32,49 @@ For the original Python implementation see [netviewP](https://github.com/esteini
 ###Quick Start
 
 ```
+data(netview)
+
 # Distance Matrix
-distMatrix <- as.matrix(read.csv("exampleMatrix.csv", header=F))
+distMatrix <- netview$distMatrix
 
 # Data Frame
-metaData <- read.csv("exampleData.csv")
+metaData <- netview$metaData
 
 # mkNNGs in range of k = 10-50 by 5
-graphs <- netview(mdist, meta, k=10:60, step=5)
+graphs <- netview(distMatrix, metaData k=10:60, step=5)
 
 # Networks D3
-graphsD3 <- netview(mdist, meta, k=10:60, step=5, networkD3=TRUE)
+graphsD3 <- netview(distMatrix, metaData, k=10:60, step=5, networkD3=TRUE)
 
 # Community Detection
-graphsCommunities <- netview(mdist,meta, k=10:60, step=5, cluster=TRUE)
+graphsCommunities <- netview(distMatrix, metaData, k=10:60, step=5, cluster=TRUE)
 
 # K Plot
-selectionPlot <- netview(mdist, meta, k=10:60, step=5, selectionPlot=TRUE)
+selectionPlot <- netview(distMatrix, metaData, k=10:60, step=5, selectionPlot=TRUE)
 ```
 ###Input
 
+#####Quality Control
+
+Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We recommend a missing rate > 10% per sample, which can be implemented for instance through quality control in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such samples before network construction.
+
 #####Distance Matrix
 
-Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can for instance construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than in NetView P and allows for flexibility in the type of data (haploid, diploid, distance measures...) to construct the mkNNG.
+Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can for instance construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic` from [ape]() in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, distance measures...) used to construct the mkNNG.
 
 #####Data Frame
 
-The data frame contains at minimum three named columns of meta data for each sample in the matrix: sample ID ("ID"), sample colour ("Colour") and sample group ("Group"). Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and sample population attributes to compare the final genetic structure to the sample populations. The samples in the data frame must be in the same order and number as the rows in the matrix.
+The data frame contains at minimum three named columns of meta data for each sample in the matrix: 
+
+* sample ID ("ID")
+* sample colour ("Colour")
+* sample group ("Group")
+
+Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and sample population attributes to compare the final genetic structure to the sample populations. The samples in the data frame must be in the same order and number as the rows in the matrix.
+
+###Network Construction
+
+MST
 
 
 
