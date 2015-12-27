@@ -88,7 +88,7 @@ options         list, list of options from netviewOptions(...)
 
 #####Quality Control
 
-Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We recommend a missing rate > 10% per sample, which can be implemented for instance through quality control in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such samples before network construction.
+Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We would recommend a missing rate < 10% per sample across SNPs, which can be implemented, for instance, through quality control functions in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such branches prior to network construction.
 
 #####Distance Matrix
 
