@@ -8,7 +8,7 @@ If you find any bugs or would like to contribute, feel free to contact us or use
 
 ###Installation
 
-```
+```r
 require(devtools)
 install_github("esteinig/netview")
 ```
@@ -32,7 +32,7 @@ For the original Python implementation see [netviewP](https://github.com/esteini
 
 ###Quick Start
 
-```
+```r
 data(netview)
 
 # Distance Matrix
@@ -58,7 +58,7 @@ selectionPlot <- netview(distMatrix, metaData, k=10:60, step=5, selectionPlot=TR
 
 Network construction, analysis and visualization is accessible via `netview` ( `?netview` ):
 
-```
+```r
 netview(mdist, data, k=10:60, step=5, cluster=FALSE, mst=FALSE, networkD3=FALSE,
         selectionPlot=FALSE, save=FALSE, project="netview", options=netviewOptions() )
 ```
@@ -108,7 +108,7 @@ Colour and group attributes can be used to highlight associated data in the netw
 
 Network construction, plots and visualizations can be configured via `netviewOptions` ( `?netviewOptions` ):
 
-```
+```r
 defaultOptions <- netviewOptions()
 optionsExample <- netviewOptions(mknn.weights=TRUE, nodeGroup="Population")
 
