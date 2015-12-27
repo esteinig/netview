@@ -1,6 +1,7 @@
 ### Pearl Oyster Tutorial
 
 ######Data
+---
 
 The data used for this tutorial is from our initial analysis of 83 pearl oysters from Aru Islands, Bali and West Papua. The data file can be found at Dryad or loaded via the data function in R. This is a fairly small data set and calculations for larger graphs can take longer. For our purposes though, the oyster data can demonstrate 
 
@@ -14,6 +15,7 @@ The data used for this tutorial is from our initial analysis of 83 pearl oysters
 Shared-allele distance matrix via `--distance-matrix` in PLINK.
 
 ######Loading and Checking Data for NetView
+---
 
 Let's get started and load the data frame and the distance matrix from the package data:
 
@@ -49,6 +51,7 @@ oysterOptions <- netviewOptions(nodeGroup="Population", selectionTitle="Oyster k
 ```
 
 ######Selecting k for mNNGs
+---
 
 Before we run the final networks, we want to know an appropriate value for k, which determines the maximum number of mutual nearest neighbours that are connected by edges during construction of the mkNNG. The choice of an optimal value of k is still a challenge (Neuditschko et al. 2012). Essentially, we are looking for a network topology within the possible mkNNGs that represents the genetic similarity of isolates at an appropriate level of resolution on the genetic structure in the data, appropriate for the research question and application of your data. We also want to avoid the selection of a network that has very little information on the population-wide structure in the data. 
 
@@ -70,7 +73,7 @@ In the slowly declining part of the k-selection plot, fine-scale structures emer
 
 The plot is representative of the 'zoom' effect discussed by Neuditschko et al. (2012). Although not suggesting an optimal value for k, in the oyster data we can limit our range to k >= 10 and select either a lower value for higher resolution on the fine-scale structures in the network or a more conservative value for large-scale structure in the tail of the plot at approximately k >= 30. The ultimate choice depends on the study question and purpose and should be justified in the application to your data.
 
-#### To be continued... gotta go and see Star Wars.
+###### To be continued... gotta go and see Star Wars.
 
 
 
