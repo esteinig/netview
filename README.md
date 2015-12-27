@@ -96,11 +96,11 @@ Main input is a symmetrical genetic distance matrix (N x N) using your preferred
 
 #####Data Frame
 
-The data frame contains at minimum three named columns of meta data for each sample in the matrix: 
+The data frame contains at minimum three named columns of meta data for each sample in the matrix (node in graph): 
 
-* sample ID ("ID")
-* sample colour ("Colour")
-* sample group ("Group")
+* node ID ("ID")
+* node colour ("Colour")
+* node group ("Group")
 
 Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and sample population attributes to compare the final genetic structure to the sample populations. The samples in the data frame must be in the same order and number as the rows in the matrix.
 
