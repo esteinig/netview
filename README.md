@@ -88,8 +88,6 @@ options       list, list of options from netviewOptions(...)
 
 ```
 
-###Input
-
 #####Quality Control
 
 Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We recommend a missing rate > 10% per sample, which can be implemented for instance through quality control in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such samples before network construction.
@@ -108,7 +106,7 @@ The data frame contains at minimum three named columns of meta data for each sam
 
 Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and sample population attributes to compare the final genetic structure to the sample populations. The samples in the data frame must be in the same order and number as the rows in the matrix.
 
-###Options
+#####Options
 
 Network construction, plots and visualizations can be configured via `netviewOptions` ( `?netviewOptions` ):
 
@@ -128,7 +126,7 @@ nodeGroup             character, name of column in data frame containing sample 
 mknn.weights          include weights (distance) for edges in mkNNG [ TRUE ]
 mknn.algorithm        choice of mutual k-Nearest Neighbour algorithm (cccd: ?nng ) [ "cover_tree" ]
 
-cluster.algorithms    character vector of community algorithms (netview: ?netview) [ c("Walktrap", "Fast-Greedy",         "Infomap") ]
+cluster.algorithms    character vector of community algorithms (netview: ?netview) [ c("Walktrap", "Infomap" ) ]
 
 selection.plot        numeric vector of length [3] for selection ggPlot: k-breaks, n-breaks, line-width [ c(20, 5, 1) ]
 selection.title       character, title for selection ggPlot
@@ -136,3 +134,25 @@ selection.title       character, title for selection ggPlot
 For  additional options to configure the visualization with networkD3, see the documentation ( ?netview ).
 ```
 
+####Tutorial and Examples
+
+* [Oyster Tutorial]()
+* [MRSA Tutorial]()
+* [Examples from Published Data]()
+* [NetView for Ecological Data]()
+* [Geographical Network Projections]()
+
+####Links, References and Reading List
+
+* [Links]()
+* [Reading List]()
+
+If you use the package for publication, please cite:
+
+* [Neuditschko et al. (2012): NetView]()
+* [Steinig et al. (2015): NetView P]()
+
+####Contact
+
+eikejoachim.steinig@my.jcu.edu.au
+eike.steinig@menzies.edu.au
