@@ -17,11 +17,14 @@ install_github("esteinig/netview")
 
 ###Dependencies
 
-* Mutual nearest neighbour graphs: [cccd]()
-* Network visualization with D3: [networkD3]()
-* Network analysis and visualization: [iGraph]()
-* Analysis plots: [ggplot2]()
-* HTML integration: [htmlwidgets]()
+[RStudio]() is great for showing the network visualizations from networkD3 and plot networks with iGraph, highly recommended.
+
+* [cccd]()
+* [networkD3]()
+* [igraph]()
+* [ggplot2]()
+* [htmlwidgets]()
+* [ape]()
 
 ###Versions
 
@@ -52,6 +55,39 @@ graphsCommunities <- netview(distMatrix, metaData, k=10:60, step=5, cluster=TRUE
 # K Plot
 selectionPlot <- netview(distMatrix, metaData, k=10:60, step=5, selectionPlot=TRUE)
 ```
+
+###NetView
+
+Network construction, analysis and visualization is accessible via `netview` ( `?netview` ):
+
+```
+netview(mdist, data, k=10:60, step=5, cluster=FALSE, mst=FALSE, networkD3=FALSE,
+        selectionPlot=FALSE, save=FALSE, project="netview", options=netviewOptions() )
+```
+
+**Returns**:
+
+* list of network objects in the given range of *k*
+* network plots with D3 (`networkD3 = TRUE`)
+* data and plot for selecting *k* (`selectionPlot = TRUE`).
+
+**Parameters**:
+
+```
+mdist         matrix, symmetrical distance matrix (N x N)
+data          data frame, meta data ordered as rows in matrix (N)
+k             vector of integers, range of parameter k [10:60]
+step          integer, step to construct networks through range of k [5]
+cluster       bool, run community-detection and add to mkNNGs [TRUE]
+mst           bool, add edges from minimum spanning tree to mkNNG [FALSE]
+networkD3     bool, return list of network visualizations with networkD3 [FALSE]
+selectionPlot bool, return data and plot for selecting k [FALSE]
+save          bool, save networks as .gml or .html (D3) to project directory [FALSE]
+project       character, directory name in cwd and prefix for saving networks ["netview"]
+options       list, list of options from netviewOptions(...)
+
+```
+
 ###Input
 
 #####Quality Control
@@ -72,11 +108,31 @@ The data frame contains at minimum three named columns of meta data for each sam
 
 Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and sample population attributes to compare the final genetic structure to the sample populations. The samples in the data frame must be in the same order and number as the rows in the matrix.
 
-###Network Construction
+###Options
 
-MST
+Network construction, plots and visualizations can be configured via `netviewOptions` ( `?netviewOptions` ):
 
+```
+defaultOptions <- netviewOptions()
+optionsExample <- netviewOptions(mknn.weights=TRUE, nodeGroup="Population")
+graphs <- netview(..., options=optionsExample)
+```
 
+**Options**:
 
-###Details
+```
+nodeID                character, name of column in data frame containing sample IDs [ "ID" ]
+nodeColour            character, name of column in data frame containing sample colours [ "Colour" ]
+nodeGroup             character, name of column in data frame containing sample group [ "Group" ]
+
+mknn.weights          include weights (distance) for edges in mkNNG [ TRUE ]
+mknn.algorithm        choice of mutual k-Nearest Neighbour algorithm (cccd: ?nng ) [ "cover_tree" ]
+
+cluster.algorithms    character vector of community algorithms (netview: ?netview) [ c("Walktrap", "Fast-Greedy",         "Infomap") ]
+
+selection.plot        numeric vector of length [3] for selection ggPlot: k-breaks, n-breaks, line-width [ c(20, 5, 1) ]
+selection.title       character, title for selection ggPlot
+
+For  additional options to configure the visualization with networkD3, see the documentation ( ?netview ).
+```
 
