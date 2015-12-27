@@ -72,17 +72,17 @@ netview(mdist, data, k=10:60, step=5, cluster=FALSE, mst=FALSE, networkD3=FALSE,
 **Parameters**:
 
 ```
-mdist         matrix, symmetrical distance matrix (N x N)
-data          data frame, meta data ordered as rows in matrix (N)
-k             vector of integers, range of parameter k [10:60]
-step          integer, step to construct networks through range of k [5]
-cluster       bool, run community-detection and add to mkNNGs [TRUE]
-mst           bool, add edges from minimum spanning tree to mkNNG [FALSE]
-networkD3     bool, return list of network visualizations with networkD3 [FALSE]
-selectionPlot bool, return data and plot for selecting k [FALSE]
-save          bool, save networks as .gml or .html (D3) to project directory [FALSE]
-project       character, directory name in cwd and prefix for saving networks ["netview"]
-options       list, list of options from netviewOptions(...)
+mdist           matrix, symmetrical distance matrix (N x N)
+data            data frame, meta data ordered as rows in matrix (N)
+k               vector of integers, range of parameter k [10:60]
+step            integer, step to construct networks through range of k [5]
+cluster         bool, run community-detection and add to mkNNGs [TRUE]
+mst             bool, add edges from minimum spanning tree to mkNNG [FALSE]
+networkD3       bool, return list of network visualizations with networkD3 [FALSE]
+selectionPlot   bool, return data and plot for selecting k [FALSE]
+save            bool, save networks as .gml or .html (D3) to project directory [FALSE]
+project         character, directory name in cwd and prefix for saving networks ["netview"]
+options         list, list of options from netviewOptions(...)
 
 ```
 
@@ -118,25 +118,25 @@ graphs <- netview(..., options=optionsExample)
 **Parameters**:
 
 ```
-nodeID                character, name of column in data frame containing sample IDs [ "ID" ]
-nodeColour            character, name of column in data frame containing sample colours [ "Colour" ]
-nodeGroup             character, name of column in data frame containing sample group [ "Group" ]
+nodeID                character, name of column in data frame containing sample IDs ["ID"]
+nodeColour            character, name of column in data frame containing sample colours ["Colour"]
+nodeGroup             character, name of column in data frame containing sample group ["Group"]
 
-mknn.weights          include weights (distance) for edges in mkNNG [ TRUE ]
-mknn.algorithm        choice of mutual k-Nearest Neighbour algorithm (cccd: ?nng ) [ "cover_tree" ]
+mknn.weights          include weights (distance) for edges in mkNNG [TRUE]
+mknn.algorithm        choice of mutual k-Nearest Neighbour algorithm (cccd: ?nng ) ["cover_tree"]
 
-cluster.algorithms    character vector of community algorithms (netview: ?netview) [ c("Walktrap", "Infomap", "Fast-Greedy") ]
+cluster.algorithms    character vector of community algorithms (netview: ?netview) [c("Walktrap", "Infomap", "Fast-Greedy")]
 
-selection.plot        numeric vector of length [3] for selection ggPlot: k-breaks, n-breaks, line-width [ c(20, 5, 1) ]
+selection.plot        numeric vector of length [3] for selection ggPlot: k-breaks, n-breaks, line-width [c(20, 5, 1)]
 selection.title       character, title for selection ggPlot ["K Selection mkNNGs"]
 
-For  additional options to configure the visualization with networkD3: ?netview Documentation.
+For additional options to configure the visualization with networkD3 see the Documentation ( ?netview )
 ```
 
-####Details on Algorithms
+####Algorithms
 
 * [mutual k-Nearest-Neighbour Graphs]()
-* [community detection with iGraph]()
+* [community detection algorithms in iGraph]()
 
 ####Tutorial and Examples
 
