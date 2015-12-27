@@ -1,7 +1,5 @@
 # NetView
 
-###Package **netview** for R
-
 NetView is a pipeline for the analysis of genetic population structure using mutual k-nearest neighbour graphs (mkNNGs). The network representation allows for the application of graph-theoretical concepts to the analysis of population structure. The main implementation of the pipeline is now availabe in R. 
 
 We decided to move away from Python to enable a more user-friendly access to the main command-line functions, better interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). In addition, we have been working on some ideas to select appropriate parameter values for constructing mkNNGs, combining networks analysis with results from [Admixture]() and implementing community-detection and visualization through [iGraph]().
@@ -144,6 +142,7 @@ For  additional options to configure the visualization with networkD3: ?netview 
 
 * [Oyster Tutorial]()
 * [MRSA Tutorial]()
+* [Admixture Networks]()
 * [Examples from Published Data]()
 * [NetView for Ecological Data]()
 * [Geographical Network Projections]()
@@ -160,5 +159,5 @@ If you use the package for publication, please cite:
 
 ####Contact
 
-eikejoachim.steinig@my.jcu.edu.au
-eike.steinig@menzies.edu.au
+* eikejoachim.steinig@my.jcu.edu.au
+* eike.steinig@menzies.edu.au
