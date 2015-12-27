@@ -19,7 +19,8 @@ Shared-allele distance matrix via `--distance-matrix` in PLINK.
 
 Let's get started and load the data frame and the distance matrix from the package data:
 
-```
+```r
+library(netview)
 data(netview)
 
 distMatrix <- data$distMatrix
@@ -28,7 +29,7 @@ metaData <- data$metaData
 
 The rows in the distance matrix are ordered the same as the rows in the data frame, let's see what we have named the data columns and test that the number of samples is the same in both matrix and meta data:
 
-```
+```r
 names(metaData)
 nrow(metaData) == nrow(distMatrix)
 is.matrix(distMatrix)
@@ -46,7 +47,7 @@ This should return:
 
 Let's now set some options and make the data columns accessible for the graph construction. We will specify only the grouping column, since the other two are already named "ID" and "Colour" by default. The group will be used later to colour the nodes in the networks with networkD3. We also set a title for our k-selection plot:
 
-```
+```r
 oysterOptions <- netviewOptions(nodeGroup="Population", selectionTitle="Oyster k-Selection")
 ```
 
@@ -57,7 +58,7 @@ Before we run the final networks, we want to know an appropriate value for k, wh
 
 We can use community (cluster) detection algorithms as a proxy for showing the the effect of k on the construction and structure of the mkNNG. There are inherent differences to the way these algorithms detect communities in the network topology, and some further reading can be found in the [community-detection]() section and the [reading list](). In order to select an appropriate k for the mkNNG, we can use multiple rus of these algorithms (to roughly account for their difference) and plot the resulting number of clusters n against k across k = 1 to k = 60 (or roughly 3/4 N):
 
-```
+```r
 netview(distMatrix, metaData, k=1:60, step=1, options = oysterOptions, selectionPlot = TRUE)
 ```
 
