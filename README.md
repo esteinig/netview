@@ -9,7 +9,7 @@ If you find any bugs or would like to contribute, feel free to contact us or use
 ###Installation
 
 ```r
-require(devtools)
+require("devtools")
 install_github("esteinig/netview")
 ```
 
@@ -33,6 +33,7 @@ For the original Python implementation see [netviewP](https://github.com/esteini
 ###Quick Start
 
 ```r
+library(netview)
 data(netview)
 
 # Distance Matrix
