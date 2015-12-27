@@ -113,10 +113,11 @@ Network construction, plots and visualizations can be configured via `netviewOpt
 ```
 defaultOptions <- netviewOptions()
 optionsExample <- netviewOptions(mknn.weights=TRUE, nodeGroup="Population")
+
 graphs <- netview(..., options=optionsExample)
 ```
 
-**Options**:
+**Parameters**:
 
 ```
 nodeID                character, name of column in data frame containing sample IDs [ "ID" ]
@@ -134,6 +135,11 @@ selection.title       character, title for selection ggPlot
 For  additional options to configure the visualization with networkD3, see the documentation ( ?netview ).
 ```
 
+####Details on Algorithms
+
+* [mutual k-Nearest-Neighbour Graphs]()
+* [community detection with iGraph]()
+
 ####Tutorial and Examples
 
 * [Oyster Tutorial]()
@@ -142,7 +148,7 @@ For  additional options to configure the visualization with networkD3, see the d
 * [NetView for Ecological Data]()
 * [Geographical Network Projections]()
 
-####Links, References and Reading List
+####Further Reading, Links and References
 
 * [Links]()
 * [Reading List]()
