@@ -26,9 +26,13 @@ install_github("esteinig/netview")
 
 ###Versions
 
+NetView v.1.0 for R
+
+Core calculationsin the pipeline are identical to the methods described in the published NetView P.
+
 For a user-interface with Shiny see [netviewR](https://github.com/esteinig/netviewR). This will be updated and integrated with geographical projections using [geonet]() for R.
 
-For the original Python implementation see [netviewP](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the implementation in R.
+For the original Python implementation see [netviewP](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the current implementation in R.
 
 ###Quick Start
 
