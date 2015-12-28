@@ -75,14 +75,18 @@ netview(mdist, data, k=10:60, step=5, cluster=FALSE, mst=FALSE, networkD3=FALSE,
 ```
 mdist           matrix, symmetrical distance matrix (N x N)
 data            data frame, meta data ordered as rows in matrix (N)
+
 k               vector of integers, range of parameter k [10:60]
 step            integer, step to construct networks through range of k [5]
+
 cluster         bool, run community-detection and add to mkNNGs [TRUE]
 mst             bool, add edges from minimum spanning tree to mkNNG [FALSE]
 networkD3       bool, return list of network visualizations with networkD3 [FALSE]
 selectionPlot   bool, return data and plot for selecting k [FALSE]
+
 save            bool, save networks as .gml or .html (D3) to project directory [FALSE]
 project         character, directory name in cwd and prefix for saving networks ["netview"]
+
 options         list, list of options from netviewOptions(...)
 
 ```
@@ -111,7 +115,7 @@ Network construction, plots and visualizations can be configured via `netviewOpt
 
 ```r
 defaultOptions <- netviewOptions()
-optionsExample <- netviewOptions(mknn.weights=TRUE, nodeGroup="Population")
+optionsExample <- netviewOptions(mknnWeights=TRUE, nodeGroup="Population")
 
 graphs <- netview(..., options=optionsExample)
 ```
@@ -139,14 +143,14 @@ For additional options to configure the visualization with networkD3 see the Doc
 * [mutual k-Nearest-Neighbour Graphs]()
 * [community detection algorithms in iGraph]()
 
-####Tutorial and Examples
+####Tutorials and Examples
 
-* [Oyster Tutorial]()
-* [MRSA Tutorial]()
-* [Admixture Networks]()
-* [Examples from Published Data]()
-* [NetView for Ecological Data]()
-* [Geographical Network Projections]()
+* [Tutorial 1: Pearl Oyster]()
+* [Tutorial 2: MRSA]()
+* [Recipe 1: Admixture Networks]()
+* [Recipe 2: Geographical Networks]()
+* [Recipe 3: Ecologcial Networks]()
+* [Gallery]()
 
 ####Further Reading, Links and References
 
