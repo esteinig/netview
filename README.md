@@ -140,16 +140,17 @@ For additional options to configure the visualization with networkD3 see the Doc
 
 ####Algorithms
 
-* [mutual k-Nearest-Neighbour Graphs]()
-* [community detection algorithms in iGraph]()
+* [Background 1: Mutual k-Nearest-Neighbour Graphs]()
+* [Background 2: Community-detection algorithms in iGraph]()
 
 ####Tutorials and Examples
 
 * [Tutorial 1: Pearl Oyster]()
 * [Tutorial 2: MRSA]()
-* [Recipe 1: Admixture Networks]()
-* [Recipe 2: Geographical Networks]()
-* [Recipe 3: Ecologcial Networks]()
+* [Recipe 1: Community Analysis]()
+* [Recipe 2: Admixture Networks]()
+* [Recipe 3: Geographical Networks]()
+* [Recipe 4: Ecologcial Networks]()
 * [Gallery]()
 
 ####Further Reading, Links and References
@@ -159,8 +160,8 @@ For additional options to configure the visualization with networkD3 see the Doc
 
 If you use the package for publication, please cite:
 
-* [Neuditschko et al. (2012): NetView]()
-* [Steinig et al. (2015): NetView P]()
+* [Neuditschko et al. (2012) - NetView - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
+* [Steinig et al. (2015) - NetView P - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
 
 ####Contact
 
