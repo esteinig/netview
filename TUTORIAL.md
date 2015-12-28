@@ -45,7 +45,7 @@ This should return:
 [1] TRUE
 ```
 
-Let's now set some options and make the data columns accessible for the graph construction. We will specify only the grouping column, since the other two are already named "ID" and "Colour" by default. The group will be used later to colour the nodes in the networks with networkD3. We also set a title for our k-selection plot:
+Let's now set some options and make the data columns accessible for the graph construction. We will specify only the grouping column, since the other two are already named "ID" and "Colour" by default. Colour is defined for populations (green: Aru Islands, blue: Bali, purple: West Papua). The group will be used later to colour the nodes in the networks with networkD3. We also set a title for our k-selection plot:
 
 ```r
 oysterOptions <- netviewOptions(nodeGroup="Population", selectionTitle="Oyster k-Selection")
@@ -74,7 +74,7 @@ As we increase k, the number of detected communities declines, first rapidly (k 
 
 ![]
 
-In the slowly declining part of the k-selection plot, fine-scale structures emerge in the mkNNG. This threshold, after the rapidly declining 'assembly' phase of the population network, in this case corresponds to the empirical values for k = 10 previously used by us and our colleagues (Neuditschko et al. 2012, Steinig et al. 2015):
+In the slowly declining part of the k-selection plot, fine-scale structures emerge in the mkNNG. This threshold (after the rapidly declining 'assembly' phase of the population network) approximately corresponds to the empirical value of k = 10 previously used by us and our colleagues (Neuditschko et al. 2012, Steinig et al. 2015):
 
 ![]
 
@@ -87,20 +87,63 @@ The plot is representative of the 'zoom' effect discussed by Neuditschko et al. 
 ######Running NetView
 ---
 
-Now that we have an idea of which network topologies may be appropriate for our analysis, let's generate the networks. We will make two runs to generate a list of network objects for visualization in iGraph and a list of widgets holding the D3 visualization with networkD3. We will compute the networks from k = 10 to k = 60 in increments of 5 and use our previously defined oysterOptions:
+Now that we have an idea of which network topologies may be appropriate for our analysis, let's generate the networks. We will make two runs to generate a list of network objects for visualization in iGraph and a list of widgets holding the D3 visualization with networkD3. We will compute the networks from k = 10 to k = 60 in increments of 5 and use our previously defined oysterOptions. On the first run, we will also use the default community-detection algorithms (Infomap, Fast-Greedy, Walktrap) to find communities and decorate the graphs with the resulting objects. We will use these later to demonstrate how to highlight the communities of a particular mkNNG.
 
 ```r
-graphs <- netview(distMatrix, metaData, k=10:60, step=5, options = oysterOptions)
+graphs <- netview(distMatrix, metaData, k=10:60, step=5, options = oysterOptions, cluster=TRUE)
 
 graphsD3 <- netview(distMatrix, metaData, k=10:60, step=5, options = oysterOptions, networkD3 = TRUE)
 ```
 
+For demonstration, we will continue with the fine-scale (threshold) network at k = 10, but also have brief look at how the network looks like at k = 30.
+
 ######Network Visualizations
 ---
 
-Now that we have a list of the networks, let's visualize them - there are two great libraries, the comprehensive graph-analysis library [iGraph]() and the [D3]()-based networkD3. In iGraph, you can basically do anything related to graph objects (as returned by our first run), including plotting, community-detection, node and edge analysis and so on. D3 is a magnificent toolkit to generate interactive data-driven visualizations and the library networkD3 can generate really pretty networks, but may be computationally intensive for very large graphs. A great thing about networks is that you can attache meta data of your samples to the network nodes, for instance, colour them by geographical origin, highlight antibiotic resistance distribution in your population, attach labels for sex, phenotype, population and so on. This makes it really easy to compare sample data to the underlying, genetic structure depicted by the mkNNG.
+Now that we have a list of the networks, let's visualize them - there are two great libraries we will use for graph-analysis and -visualization in R: the comprehensive analysis library [iGraph]() and the [D3]()-based visualizaions from networkD3. In iGraph, you can basically do anything related to graph objects (as returned by our first run), including plotting, community-detection, edge analysis and so on. D3 is a magnificent toolkit to generate interactive data-driven visualizations as implemented for graphs in networkD3. The visualizations may be computationally intensive for very large graphs (especially in RStudio), but you can save them as HTML using `save=TRUE`. A great thing about networks is that you can attach meta data of your samples to the network nodes, for example, to colour nodes by geographical origin, highlight antibiotic resistance distribution in your population, attach labels for sex, phenotype, pedigree and so on. This makes it really easy to compare sample data to the underlying, genetic structure depicted by the mkNNG.
 
-Ok, let's start with simple plotting in iGraph:
+Ok, let's start with simple plotting in iGraph. The graph objects get decorated with the Fruchtermann-Reingold layout in NetView, but we can change [layouts](http://www.inside-r.org/packages/cran/igraph/docs/layout) and vertex (node) attributes using the adapted [plot function](http://igraph.org/r/doc/plot.common.html) from iGraph:
+
+```r
+# Get graphs from list
+k10 <- graphs$k10
+
+# Simple plot with iGraph
+plot(k10)
+```
+
+![]
+
+That's nice, but let's clean it up a bit:
+
+```r
+# Clean up graph
+plot(k10, vertex.size=7, vertex.label=NA)
+
+# Plot with different layout (Kamada-Kawai)
+plot(k10, vertex.size=7, vertex.label=NA, layout=layout.kamada.kawai(k10))
+
+# Use data column ID to set labels
+plot(k10, vertex.size=7, vertex.label=as.character(metaData$ID))
+
+```
+
+Ok, there are a lot of things to customize your graph with, but let's see the interactive version with networkD3:
+
+```r
+graphsD3$k10
+```
+
+Hover over nodes to see their ID and play around with the force-directed layout, it's fun to watch! You can check the documentation ( `?netview` and `?networkD3` ) for more parameters to adjust the network visualizations in netviewOptions.
+
+######Selecting network and community mkNNGs
+---
+
+Seeing the networks is great, but how do we select a single right configuration of the mkNNG? Unfortunately, there is no one-value-fits-it-all solution (a succinct discussion on clusters can be found in the [DAPC Tutorial]() by Thibaut Jombart). Instead, the selection of an appropriate topology and community-resolution depends on what we ask from our data - are we interested in the large-scale population-level structure (e.g. to investigate admixed populations or define clades in a phylogeny) or are we interested in the potential fine-scale sub-structure within the populations (e.g. family-level analysis of breeding populations)? Or are we interested in only finding the single mNN for each sample in the network to trace high genetic similarity in a geographical context (see [MRSA Tutorial]())? In particular with fine-scale mkNNGs, pedigree data or detailed meta data for samples can help to validate structures in the topology. We used manual pedigree data to trace genetic lineages in networks of cultured *P. maxima* and found that the network topology at k = 10 accurately grouped related individuals and families at a high-resolution (Steinig et al. 2015).
+
+Although we have limited our range of k using the selection plot, we still need to look at some configurations within this range and finally, select one or more appropriate for discussion and further analysis. In the case of the oyster populations, we are interested in the large-scale admixture of the three geographically distinct populations, as well as potential sub-structures within each population. Let's first tracea look at networks and communities in the tail of the selection plot (k = 40), in the elbow (k = 20) and finally a our resolution minimum at k = 10:
+
+
 
 
 
