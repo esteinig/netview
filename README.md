@@ -123,9 +123,9 @@ graphs <- netview(..., options=optionsExample)
 **Parameters**:
 
 ```
-nodeID                character, name of column in data frame containing sample IDs ["ID"]
-nodeColour            character, name of column in data frame containing sample colours ["Colour"]
-nodeGroup             character, name of column in data frame containing sample group ["Group"]
+nodeID               character, name of column in data frame containing sample IDs ["ID"]
+nodeColour           character, name of column in data frame containing sample colours ["Colour"]
+nodeGroup            character, name of column in data frame containing sample group ["Group"]
 
 mknnWeights          include weights (distance) for edges in mkNNG [TRUE]
 mknnAlgorithm        choice of mutual k-Nearest Neighbour algorithm (cccd: ?nng ) ["cover_tree"]
