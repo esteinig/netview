@@ -1,5 +1,12 @@
 ### Pearl Oyster Tutorial
 
+* Data
+* Input
+* Selecting k-limits for mkNNGs
+* Visualization
+* Selecting mkNNGs and Communities
+* Admixture Networks
+
 ######Data
 ---
 
