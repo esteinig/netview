@@ -2,7 +2,7 @@
 
 Under construction, finished soon!
 
-NetView is a pipeline for the analysis of genetic population structure using mutual k-nearest neighbour graphs (mkNNGs). The network representation allows for the application of graph-theoretical concepts to the analysis of population structure. The main implementation of the pipeline is now availabe in R. 
+NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The network representation allows for the application of graph-theoretical concepts to the analysis of population structure. The main implementation of the pipeline is now availabe in R. 
 
 We decided to move away from Python to enable a more user-friendly access to the main command-line functions, better interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). In addition, we have been working on some ideas to select appropriate parameter values for constructing mkNNGs, combining networks analysis with results from [Admixture]() and implementing community-detection and visualization through [iGraph]().
 
@@ -17,7 +17,7 @@ install_github("esteinig/netview")
 
 ###Dependencies
 
-[RStudio]() is great for showing the network visualizations from networkD3 and plot networks with iGraph, highly recommended.
+[RStudio]() is great for showing the network visualizations from networkD3 and plot networks with iGraph, highly recommended. The pipeline depends on some great packages and interfaces to graph analysis and visualization. Also check out [D3 by Mike Bostock](), if you haven't already!
 
 * [cccd]()
 * [networkD3]()
@@ -28,9 +28,9 @@ install_github("esteinig/netview")
 
 ###Versions
 
-NetView v.1.0 for R
+NetView v.1.0
 
-Core calculationsin the pipeline are identical to the methods described in the published NetView P.
+Core calculationsin the pipeline are identical to the methods described in the publication for [NetView P]().
 
 For a user-interface with Shiny see [netviewR](https://github.com/esteinig/netviewR). This will be updated and integrated with geographical projections using [geonet]() for R.
 
@@ -70,13 +70,13 @@ netview(mdist, data, k=10:60, step=5, cluster=FALSE, mst=FALSE, networkD3=FALSE,
         selectionPlot=FALSE, save=FALSE, project="netview", options=netviewOptions() )
 ```
 
-**Returns**:
+######Returns:
 
-* list of network objects in the given range of *k*
-* network plots with D3 (`networkD3 = TRUE`)
-* data and plot for selecting *k* (`selectionPlot = TRUE`).
+* List of network objects in the given range of *k*
+* Network plots with D3 (`networkD3 = TRUE`)
+* Data and plot for selecting *k* (`selectionPlot = TRUE`).
 
-**Parameters**:
+######Parameters:
 
 ```
 mdist           matrix, symmetrical distance matrix (N x N)
@@ -97,25 +97,30 @@ options         list, list of options from netviewOptions(...)
 
 ```
 
-#####Quality Control
+####Input
 
-Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We would recommend a missing rate < 10% per sample across SNPs, which can be implemented, for instance, through quality control functions in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such branches prior to network construction.
+######Quality Control
+---
 
-#####Distance Matrix
+Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We would recommend a missing rate < 10% per sample across SNPs, which can be implemented, through quality control functions as implemented, for instance, in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such branches prior to network construction. Homogenous sample population sizes are recommended (Neuditschko et al. 2012).
 
-Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can for instance construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic` from [ape]() in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, distance measures...) used to construct the mkNNG.
+######Distance Matrix
+---
 
-#####Data Frame
+Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can, for example, construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic` from [ape]() in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, genetic or ecologigal data, distance measures) used for construction of the mkNNGs.
+
+######Data Frame
+---
 
 The data frame contains at minimum three named columns of meta data for each sample in the matrix (node in graph): 
 
-* node ID ("ID")
-* node colour ("Colour")
-* node group ("Group")
+* Node ID (`"ID"`)
+* Node colour (`"Colour"`)
+* Node group (`"Group"`)
 
-Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and sample population attributes to compare the final genetic structure to the sample populations. The samples in the data frame must be in the same order and number as the rows in the matrix.
+Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and population attributes to compare the final genetic structure to the sample populations or geographical locations. Samples in the data frame must be in the same order and number as the rows in the matrix.
 
-#####Options
+####Options
 
 Network construction, plots and visualizations can be configured via `netviewOptions` ( `?netviewOptions` ):
 
@@ -126,7 +131,7 @@ optionsExample <- netviewOptions(mknnWeights=TRUE, nodeGroup="Population")
 graphs <- netview(..., options=optionsExample)
 ```
 
-**Parameters**:
+######Parameters:
 
 ```
 nodeID               character, name of column in data frame containing sample IDs ["ID"]
@@ -156,7 +161,7 @@ For additional options to configure the visualization with networkD3 see the Doc
 * [Recipe 1: Community Analysis]()
 * [Recipe 2: Admixture Networks]()
 * [Recipe 3: Geographical Networks]()
-* [Recipe 4: Ecologcial Networks]()
+* [Recipe 4: Ecological Networks]()
 * [Gallery]()
 
 ####Further Reading, Links and References
