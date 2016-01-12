@@ -9,6 +9,7 @@ We decided to move away from Python to enable a more user-friendly access to the
 If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. 
 
 ###Installation
+---
 
 ```r
 require("devtools")
@@ -16,6 +17,7 @@ install_github("esteinig/netview")
 ```
 
 ###Dependencies
+---
 
 [RStudio]() is highly recommended and the pipeline depends on some great code from the community:
 
@@ -30,6 +32,7 @@ install_github("esteinig/netview")
 * [gplots]()
 
 ###Versions
+---
 
 NetView v.1.0
 
@@ -40,6 +43,7 @@ For a user-interface with Shiny see [netviewR](https://github.com/esteinig/netvi
 For the original Python implementation see [netviewP](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the current implementation in R.
 
 ###Quick Start
+---
 
 ```r
 library(netview)
@@ -59,6 +63,7 @@ selectionPlot <- plotSelection(graphs, options=oysterOptions)
 ```
 
 ###NetView
+---
 
 Network construction, analysis and visualization is accessible via `netview` ( `?netview` ):
 
@@ -71,7 +76,6 @@ netview(distMatrix, metaData, k=10:60, step=5, tree= NULL, cluster=FALSE, mst=FA
 
 * List of network objects in the given range of *k* (`ǹetworkD3 = FALSE`)
 * Network plots with D3 (`networkD3 = TRUE`)
-* Data and plot for selecting *k* (`selectionPlot = TRUE`).
 
 ######Parameters:
 
@@ -96,19 +100,17 @@ options         list, list of options from netviewOptions(...)
 ```
 
 ####Input
+---
 
 ######Quality Control
----
 
 Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We would recommend a missing rate < 10% per sample across SNPs, which can be implemented, through quality control functions as implemented, for instance, in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such branches prior to network construction. Homogenous sample population sizes are recommended (Neuditschko et al. 2012).
 
 ######Distance Matrix
----
 
 Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can, for example, construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic` from [ape]() in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, genetic or ecologigal data, distance measures) for construction of the mkNNGs.
 
 ######Data Frame
----
 
 The data frame contains at minimum three named columns of meta data for each sample (node) in the matrix: 
 
@@ -119,6 +121,7 @@ The data frame contains at minimum three named columns of meta data for each sam
 Colour and group attributes can be used to highlight associated data in the network representation, but are not required for the algorithm to construct the mkNNG. For instance, one could assign colour and population attributes to compare the final genetic structure to the sample populations or geographical locations. Samples in the data frame must be in the same order and number as the rows in the matrix.
 
 ####Options
+---
 
 Network construction, plots and visualizations can be configured via `netviewOptions` ( `?netviewOptions` ):
 
@@ -145,12 +148,19 @@ selectionTitle       character, title for selection ggPlot ["K Selection mkNNGs"
 For additional options to configure the visualization with networkD3 see the Documentation ( ?netview )
 ```
 
+####Accessory Functions
+---
+
+...
+
 ####Algorithms
+---
 
 * [Background 1: Mutual k-Nearest-Neighbour Graphs]()
 * [Background 2: Community-detection algorithms in iGraph]()
 
 ####Tutorials and Examples
+---
 
 * [Tutorial 1: Pearl Oyster]()
 * [Tutorial 2: MRSA]()
@@ -161,6 +171,7 @@ For additional options to configure the visualization with networkD3 see the Doc
 * [Gallery]()
 
 ####Further Reading, Links and References
+---
 
 * [Links]()
 * [Reading List]()
@@ -175,9 +186,10 @@ If you use the [Admixture]() and [structurePlot]() functions, please cite:
 * [Alexander et al. (2009) - Fast model-based estimation of ancestry in unrelated individuals - Genome Research](http://genome.cshlp.org/content/early/2009/07/31/gr.094052.109.abstract)
 * [Ramasamy et al. (2014) - Structure Plot: a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
 
-We adopted code from Structure Plot for visualization of results from Admixture. License.
+We adopted code from [Structure Plot](http://btismysore.in/strplot/) for visualization of results from Admixture. License Information.
 
 ####Contact
+---
 
 * eikejoachim.steinig@my.jcu.edu.au
 * eike.steinig@menzies.edu.au
