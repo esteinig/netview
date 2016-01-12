@@ -173,7 +173,7 @@ If you use the package for publication, please cite:
 If you use the [Admixture]() and [structurePlot]() functions, please cite:
 
 * [Alexander et al. (2009) - Fast model-based estimation of ancestry in unrelated individuals - Genome Research](http://genome.cshlp.org/content/early/2009/07/31/gr.094052.109.abstract)
-* [Ramasamy et al. (2014) - Structure Plot: : a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
+* [Ramasamy et al. (2014) - Structure Plot: a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
 
 We adopted code from Structure Plot for visualization of results from Admixture. License.
 
