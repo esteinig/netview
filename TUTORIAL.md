@@ -235,7 +235,9 @@ k30 <- graphs$k30
 g25 <- plotAdmixture(results$out_file, oysterData, graph=k25, K=4, palette="Dark2", paletteN=8)
 g30 <- plotAdmixture(results$out_file, oysterData, graph=k30, K=4, palette="Dark2", paletteN=8)
 
-plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap)) plot(g30, vertex.shape="pie", vertex.pie=g30$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k30$walktrap))
+plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap))
+
+plot(g30, vertex.shape="pie", vertex.pie=g30$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k30$walktrap))
 ```
 
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P12.jpeg)
