@@ -1,6 +1,6 @@
 ### Pearl Oyster Tutorial
 
-*Please note that the selection plot and admixture graphs are ideas to help you in selecting an appropriate network and have not been published, yet. However, we are currently compiling the methods for review.*
+*Please note that the selection plot and admixture graphs are ideas that have not been published. We are currently compiling the methods for review and publication.*
 
 * Data
 * Input
