@@ -164,20 +164,33 @@ plot(k25, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap))
 plot(k10, vertex.size=7, vertex.label=NA, mark.groups=communities(k10$walktrap))
 ```
 
-**k = 40**
+######k = 40
+---
+
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P5.jpeg)
 
 At k = 40, the network topology and  clusters show the admixed populations from Bali (blue) and West-Papua (purple), a separate population of Aru Islands (green) and some interesting, separating oysters from Bali and West Papua, which get grouped with Aru Islands.
 
-**k = 25**
+######k = 25
+---
+
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P6.jpeg)
 
 At k = 25, the population at West Papua separates partially from Bali, while  the separating samples fro Bali and West Papua remain connected to Aru as well as forming a separate group with oysters from West Papua. 
 
-**k = 10**
+######k = 10
+---
+
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P7.jpeg)
 
-At k = 10, the network does not remain fully connected but seperates into modules. At the threshold resolution, fine-scale structure within the populations is evident in Aru Islands (retaining two separate samples from Bali), as well as the formation of single groups from Bali (previously in main Bali) and West Papua (previously connected to Aru). Additional structure is indicated within the main population from West Papua, but is not detected by the Walktrap algorithm. Connecting individuals from Bali and West Papua are grouped in a small cluster and one sample from Aru Islands is singled out with no mNNs. At the limit of our resolution of the network, it is therefore useful to know the context of the modules at higher values of k. Let's have a look at the clusters the Infomap algorithm finds at k = 10:
+At k = 10, the network does not remain fully connected but seperates into modules. At the threshold resolution, fine-scale structure within the populations is evident in Aru Islands (retaining two separate samples from Bali), as well as the formation of single groups from Bali (previously in main Bali) and West Papua (previously connected to Aru). 
+
+Additional structure is indicated within the main population from West Papua, but is not detected by the Walktrap algorithm. Connecting individuals from Bali and West Papua are grouped in a small cluster and one sample from Aru Islands is singled out with no mNNs. At the limit of our resolution of the network, it is therefore useful to know the context of the modules at higher values of k.
+
+######k = 10 with Infomap
+---
+
+Let's have a look at the clusters the Infomap algorithm finds at k = 10:
 
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P8.jpeg)
 
