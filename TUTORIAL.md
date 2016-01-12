@@ -226,7 +226,7 @@ clusters <- kPlot$Data
 clustersK4 <- clusters[clusters$n == 4 & clusters$Algorithm == "Walktrap",]
 ```
 
-This indicates four clusters at k = 25, 30 and 35. Let's have a look at the porportions in the context of the network topology at k = 25 and k = 30, comparing it to the communites derived from Walktrap:
+This indicates four clusters at k = 25, 30 and 35. Let's have a look at the individual admixture porportions in the context of the network topology at k = 25 and k = 30, highlighting the communites derived from Walktrap:
 
 ```r
 k25 <- graphs$k25
