@@ -1,8 +1,8 @@
 # NetView
 
-Under construction, finished soon!
+**Under construction, finished soon!**
 
-NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The network representation allows for the application of graph-theoretical concepts to the analysis of population structure. The main implementation of the pipeline is now availabe in R. 
+NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The main implementation of the pipeline is now availabe in R. 
 
 We decided to move away from Python to enable a more user-friendly access to the main command-line functions, better interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). In addition, we have been working on some ideas to select appropriate parameter values for constructing mkNNGs, combining networks analysis with results from [Admixture]() and implementing community-detection and visualization through [iGraph]().
 
@@ -17,7 +17,7 @@ install_github("esteinig/netview")
 
 ###Dependencies
 
-[RStudio]() is great for showing the network visualizations from networkD3 and plot networks with iGraph, highly recommended. The pipeline depends on some great packages and interfaces to graph analysis and visualization. Also check out [D3 by Mike Bostock](), if you haven't already!
+[RStudio]()is highly recommended as working environment. The pipeline depends on some great packages and code from the community:
 
 * [cccd]()
 * [networkD3]()
@@ -25,6 +25,9 @@ install_github("esteinig/netview")
 * [ggplot2]()
 * [htmlwidgets]()
 * [ape]()
+* [reshape2]()
+* [RColorBrewer]()
+* [gplots]()
 
 ###Versions
 
@@ -40,25 +43,19 @@ For the original Python implementation see [netviewP](https://github.com/esteini
 
 ```r
 library(netview)
-data(netview)
 
-# Distance Matrix
-distMatrix <- netview$distMatrix
+data(oysterData)
+data(oysterMatrix)
 
-# Data Frame
-metaData <- netview$metaData
+oysterOptions <- netviewOptions(....)
 
-# mkNNGs in range of k = 10-50 by 5
-graphs <- netview(distMatrix, metaData k=10:60, step=5)
+graphs <- netview(oysterMatrix, oysterData, k=10:60, step=5, options=oysterOptions)
 
-# Networks D3
-graphsD3 <- netview(distMatrix, metaData, k=10:60, step=5, networkD3=TRUE)
+graphsD3 <- netview(oysterMatrix, oysterData, k=10:60, step=5, networkD3=TRUE, options=oysterOptions)
 
-# Community Detection
-graphsCommunities <- netview(distMatrix, metaData, k=10:60, step=5, cluster=TRUE)
+graphCommunities <- netview(oysterMatrix, oysterData, k=10:60, step=5, cluster=TRUE, options=oysterOptions)
 
-# K Plot
-selectionPlot <- netview(distMatrix, metaData, k=10:60, step=5, selectionPlot=TRUE)
+selectionPlot <- plotSelection(graphs, options=oysterOptions)
 ```
 
 ###NetView
@@ -66,29 +63,30 @@ selectionPlot <- netview(distMatrix, metaData, k=10:60, step=5, selectionPlot=TR
 Network construction, analysis and visualization is accessible via `netview` ( `?netview` ):
 
 ```r
-netview(mdist, data, k=10:60, step=5, cluster=FALSE, mst=FALSE, networkD3=FALSE,
-        selectionPlot=FALSE, save=FALSE, project="netview", options=netviewOptions() )
+netview(distMatrix, metaData, k=10:60, step=5, tree= NULL, cluster=FALSE, mst=FALSE, 
+        networkD3=FALSE, save=FALSE, project="netview", options=netviewOptions())
 ```
 
 ######Returns:
 
-* List of network objects in the given range of *k*
+* List of network objects in the given range of *k* (`ǹetworkD3 = FALSE`)
 * Network plots with D3 (`networkD3 = TRUE`)
 * Data and plot for selecting *k* (`selectionPlot = TRUE`).
 
 ######Parameters:
 
 ```
-mdist           matrix, symmetrical distance matrix (N x N)
-data            data frame, meta data ordered as rows in matrix (N)
+distMatrix      matrix, symmetrical distance matrix (N x N)
+metaData        data frame, meta data ordered as rows in matrix (N)
 
 k               vector of integers, range of parameter k [10:60]
 step            integer, step to construct networks through range of k [5]
 
+tree            phylo, rooted phylogeny for cophenetic distance [NULL]
+
 cluster         bool, run community-detection and add to mkNNGs [TRUE]
 mst             bool, add edges from minimum spanning tree to mkNNG [FALSE]
 networkD3       bool, return list of network visualizations with networkD3 [FALSE]
-selectionPlot   bool, return data and plot for selecting k [FALSE]
 
 save            bool, save networks as .gml or .html (D3) to project directory [FALSE]
 project         character, directory name in cwd and prefix for saving networks ["netview"]
@@ -107,18 +105,18 @@ Shared missing data can introduce artifical similarity between samples when calc
 ######Distance Matrix
 ---
 
-Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can, for example, construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic` from [ape]() in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, genetic or ecologigal data, distance measures) used for construction of the mkNNGs.
+Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can, for example, construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic` from [ape]() in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, genetic or ecologigal data, distance measures) for construction of the mkNNGs.
 
 ######Data Frame
 ---
 
-The data frame contains at minimum three named columns of meta data for each sample in the matrix (node in graph): 
+The data frame contains at minimum three named columns of meta data for each sample (node) in the matrix: 
 
 * Node ID (`"ID"`)
-* Node colour (`"Colour"`)
-* Node group (`"Group"`)
+* Node Colour (`"Colour"`)
+* Node Group (`"Group"`)
 
-Colour and group attributes can be used to highlight associated data in the network representation, but are not required to construct it. A possible start would be to assign colour and population attributes to compare the final genetic structure to the sample populations or geographical locations. Samples in the data frame must be in the same order and number as the rows in the matrix.
+Colour and group attributes can be used to highlight associated data in the network representation, but are not required for the algorithm to construct the mkNNG. For instance, one could assign colour and population attributes to compare the final genetic structure to the sample populations or geographical locations. Samples in the data frame must be in the same order and number as the rows in the matrix.
 
 ####Options
 
@@ -171,8 +169,15 @@ For additional options to configure the visualization with networkD3 see the Doc
 
 If you use the package for publication, please cite:
 
-* [Neuditschko et al. (2012) - NetView - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
-* [Steinig et al. (2015) - NetView P - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
+* [Neuditschko et al. (2012) - NetView: A High-Definition Network-Visualization Approach to Detect Fine-Scale Population Structures from Genome-Wide Patterns of Variation - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
+* [Steinig et al. (2015) - NetView P: a network visualization tool to unravel complex population structure using genome-wide SNPs - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
+
+If you use the [Admixture]() and [structurePlot]() functions, please cite:
+
+* [Alexander et al. (2009) - Fast model-based estimation of ancestry in unrelated individuals - Genome Research](http://genome.cshlp.org/content/early/2009/07/31/gr.094052.109.abstract)
+* [Ramasamy et al. (2014) - Structure Plot: : a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
+
+We adopted code from Structure Plot for visualization of results from Admixture. License.
 
 ####Contact
 
