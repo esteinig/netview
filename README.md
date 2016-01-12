@@ -17,7 +17,7 @@ install_github("esteinig/netview")
 
 ###Dependencies
 
-[RStudio]()is highly recommended as working environment. The pipeline depends on some great packages and code from the community:
+[RStudio]() is highly recommended and the pipeline depends on some great code from the community:
 
 * [cccd]()
 * [networkD3]()
@@ -33,7 +33,7 @@ install_github("esteinig/netview")
 
 NetView v.1.0
 
-Core calculationsin the pipeline are identical to the methods described in the publication for [NetView P]().
+Core calculations in the pipeline are identical to the methods described in the publication for [NetView P]().
 
 For a user-interface with Shiny see [netviewR](https://github.com/esteinig/netviewR). This will be updated and integrated with geographical projections using [geonet]() for R.
 
@@ -125,8 +125,6 @@ Network construction, plots and visualizations can be configured via `netviewOpt
 ```r
 defaultOptions <- netviewOptions()
 optionsExample <- netviewOptions(mknnWeights=TRUE, nodeGroup="Population")
-
-graphs <- netview(..., options=optionsExample)
 ```
 
 ######Parameters:
@@ -169,8 +167,8 @@ For additional options to configure the visualization with networkD3 see the Doc
 
 If you use the package for publication, please cite:
 
-* [Neuditschko et al. (2012) - NetView: A High-Definition Network-Visualization Approach to Detect Fine-Scale Population Structures from Genome-Wide Patterns of Variation - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
-* [Steinig et al. (2015) - NetView P: a network visualization tool to unravel complex population structure using genome-wide SNPs - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
+* [Neuditschko et al. (2012) - NetView - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
+* [Steinig et al. (2015) - NetView P - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
 
 If you use the [Admixture]() and [structurePlot]() functions, please cite:
 
