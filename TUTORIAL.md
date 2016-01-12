@@ -68,13 +68,13 @@ graphs <- netview(oysterMatrix, oysterData, k=1:60, step=1, cluster = TRUE, opti
 kPlot <- plotSelection(graphs, options=oysterOptions)
 ```
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P1.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P1.jpeg)
 
 The selected algorithms show a general congruence with some variation in individual resolution across the mkNNGs. You can see, for instance, that the state-of-the-art Infomap algorithm continously detects clusters at a higher resolution, while the fast-greedy modularity optimisation detects fewer clusters in the topology of the network. The shape of the curve is inherent to mkNNGs across a wide variety of data (see [Examples]()) and shows a community-based approximation to the construction of population-level mkNNGs.
 
 At low values of k (k < 10) a large number of communities is detected. There is some important information on the genetically most similar samples in the data (for instance at k = 1, single mNNs), but little about population-wide structure. This is because at low values of k, few edges produce a sparse network with little information on larger-scale clustering of individuals and consequently, the algorithms find many isolated communities:
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P2.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P2.jpeg)
 
 As we increase k, the number of detected communities declines, first rapidly (k < 10) and then more slowly (k > 10). The rapidly declining range of n across k is important since it indicates where little structure is found in the topology, and we want to avoid this range of the parameter for population-level analysis.
 
@@ -82,11 +82,11 @@ There are exceptions discussed by Neuditschko et al. (2012), where a step-wise d
 
 In the slowly declining part of the k-selection plot, fine-scale structures emerge in the mkNNG. This threshold (after the rapidly declining 'assembly' phase of the population network) approximately corresponds to the empirical value of k = 10 previously used by us and our colleagues (Neuditschko et al. 2012, Steinig et al. 2015):
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P3.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P3.jpeg)
 
 As k increases, n decreases in the elbow of the plot until it stabilizes in the tail - this region shows the values for k, at which we construct a network depicting the large-scale similarity of samples in the mkNNG:
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P4.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P4.jpeg)
 
 The plot is representative of the 'zoom' effect discussed by Neuditschko et al. (2012). Although not suggesting an optimal value for k, in the oyster data we can limit our range to k >= 10 and select either a lower value for higher resolution on the fine-scale structures in the network or a more conservative value for looking at large-scale structure in the tail of the plot at approximately k >= 30. The ultimate choice depends on your questions on the data and purpose of your study and should be justified in the application to your data.
 
@@ -119,7 +119,7 @@ k10 <- graphs$k10
 plot(k10)
 ```
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P11.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P11.jpeg)
 
 That's nice, but you can use the full range of options for plotting to configure your graph, for example:
 
@@ -165,22 +165,21 @@ plot(k10, vertex.size=7, vertex.label=NA, mark.groups=communities(k10$walktrap))
 ```
 
 **k = 40**
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P5.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P5.jpeg)
 
 At k = 40, the network topology and  clusters show the admixed populations from Bali (blue) and West-Papua (purple), a separate population of Aru Islands (green) and some interesting, separating oysters from Bali and West Papua, which get grouped with Aru Islands.
 
 **k = 25**
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P6.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P6.jpeg)
 
 At k = 25, the population at West Papua separates partially from Bali, while  the separating samples fro Bali and West Papua remain connected to Aru as well as forming a separate group with oysters from West Papua. 
 
 **k = 10**
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P7.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P7.jpeg)
 
 At k = 10, the network does not remain fully connected but seperates into modules. At the threshold resolution, fine-scale structure within the populations is evident in Aru Islands (retaining two separate samples from Bali), as well as the formation of single groups from Bali (previously in main Bali) and West Papua (previously connected to Aru). Additional structure is indicated within the main population from West Papua, but is not detected by the Walktrap algorithm. Connecting individuals from Bali and West Papua are grouped in a small cluster and one sample from Aru Islands is singled out with no mNNs. At the limit of our resolution of the network, it is therefore useful to know the context of the modules at higher values of k. Let's have a look at the clusters the Infomap algorithm finds at k = 10:
 
-**k = 10: Infomap**
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P8.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P8.jpeg)
 
 Infomap finds the same cluster configuration, with the exception of additional substructure in the main population of West Papua, as indicated in the distribution of edges between the two sub-structure in the network topology.
 
@@ -197,7 +196,7 @@ results <- runAdmixture("oyster.zip", project="oyster_admixture", K=2:10, proces
 
 The minimum in the cross-validation plot is at K = 4:
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P9.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P9.jpeg)
 
 We will use this value to first select a network with the same number of clusters according to Walktrap and compare the mkNNG to the admixture proportions per sample from Admixture. We will then use the same proportions to compare against the sub-structure network at k = 10.
 
@@ -207,7 +206,7 @@ If you provide your own output files for plotting (in original output format: `.
 structurePlot <- plotAdmixture(results$out_file, oysterData, K=4, palette="Dark2", paletteN=8, structurePlot=TRUE)
 ```
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P10.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P10.jpeg)
 
 Earlier, we ran the Walktrap community-detection on our mkNNGs. Let's use the k-selection plot data to find a network configuration with Walktrap, that also contains four clusters:
 
@@ -228,8 +227,8 @@ g30 <- plotAdmixture(results$out_file, oysterData, graph=k30, K=4, palette="Dark
 plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap)) plot(g30, vertex.shape="pie", vertex.pie=g30$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k30$walktrap))
 ```
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P12.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P12.jpeg)
 
-![https://github.com/esteinig/netview/blob/master/img/Tutorial_P13.jpeg]
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P13.jpeg)
 
 
