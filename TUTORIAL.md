@@ -12,7 +12,7 @@
 ######Data
 ---
 
-The data used for this tutorial is from our initial analysis of 83 pearl oysters from Aru Islands, Bali and West Papua. The data file can be found at Dryad or loaded via the data function in R. This is a fairly small data set and calculations for larger graphs can take longer. For our purposes though, the oyster data can demonstrate 
+The data used for this tutorial is from our initial analysis of 83 pearl oysters from Aru Islands, Bali and West Papua. The data files can be found at Dryad or loaded via the data function in R. For our purposes, the oyster data demonstrates the basic workflow of NetView R.
 
 [*Pinctada maxima*](http://dx.doi.org/10.5061/dryad.p3b3f), n = 83, genotyped at 999 SNPs after QC with PLINK v1.07:
 
