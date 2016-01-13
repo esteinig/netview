@@ -72,23 +72,19 @@ kPlot <- plotSelection(graphs, options=oysterOptions)
 
 The selected algorithms show a general congruence with some variation in individual resolution across the mkNNGs. You can see, for instance, that the state-of-the-art Infomap algorithm continously detects clusters at a higher resolution, while the fast-greedy modularity optimisation detects fewer clusters in the topology of the network. The shape of the curve is inherent to mkNNGs across a wide variety of data (see [Examples]()) and shows a community-based approximation to the construction of population-level mkNNGs.
 
-At low values of k (k < 10) a large number of communities is detected. There is some important information on the genetically most similar samples in the data (for instance at k = 1, single mNNs), but little about population-wide structure. This is because at low values of k, few edges produce a sparse network with little information on larger-scale clustering of individuals and consequently, the algorithms find many isolated communities:
-
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P2.jpeg)
+At low values of k (k < 10) a large number of communities is detected. There is some important information on the genetically most similar samples in the data (for instance at k = 1, single mNNs), but little about population-wide structure. This is because at low values of k, few edges produce a sparse network and consequently, the algorithms find many isolated communities (**A**)
 
 As we increase k, the number of detected communities declines, first rapidly (k < 10) and then more slowly (k > 10). The rapidly declining range of n across k is important since it indicates where little structure is found in the topology, and we want to avoid this range of the parameter for population-level analysis.
 
 There are exceptions discussed by Neuditschko et al. (2012), where a step-wise decrease from k = 10 can compensate for some data with few individuals per sampled population. Also, if population-wide structure is not of importance, but we want to detect only the most similar samples in the data, low values of k may be appropriate for the analysis (see [MRSA Tutorial]()).
 
-In the slowly declining part of the k-selection plot, fine-scale structures emerge in the mkNNG. This threshold (after the rapidly declining 'assembly' phase of the population network) approximately corresponds to the empirical value of k = 10 previously used by us and our colleagues (Neuditschko et al. 2012, Steinig et al. 2015):
+In the slowly declining part of the k-selection plot, fine-scale structures emerge in the mkNNG. This threshold (after the rapidly declining 'assembly' phase of the population network) approximately corresponds to the empirical value of k = 10 (**B**) previously used by us and our colleagues (Neuditschko et al. 2012, Steinig et al. 2015).
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P3.jpeg)
-
-As k increases, n decreases in the elbow of the plot until it stabilizes in the tail - this region shows the values for k, at which we construct a network depicting the large-scale similarity of samples in the mkNNG:
-
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P4.jpeg)
+As k increases, n decreases in the elbow of the plot until it stabilizes in the tail - this region shows the values for k, at which we construct a network depicting the large-scale similarity of samples in the mkNNG (**C** and **D**).
 
 The plot is representative of the 'zoom' effect discussed by Neuditschko et al. (2012). Although not suggesting an optimal value for k, in the oyster data we can limit our range to k >= 10 and select either a lower value for higher resolution on the fine-scale structures in the network or a more conservative value for looking at large-scale structure in the tail of the plot at approximately k >= 30. The ultimate choice depends on your questions on the data and purpose of your study and should be justified in the application to your data.
+
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_Panel.png)
 
 ######Running NetView
 ---
@@ -101,8 +97,6 @@ On the first run, we will also use the default community-detection algorithms (I
 graphs <- netview(oysterMatrix, oysterData, k=10:60, step=5, options = oysterOptions, cluster=TRUE)
 graphsD3 <- netview(oysterMatrix, oysterData, k=10:60, step=5, options = oysterOptions, networkD3 = TRUE)
 ```
-
-For demonstration, we will continue with the fine-scale (threshold) network at k = 10.
 
 ######Network Visualizations
 ---
