@@ -34,11 +34,11 @@ data("oysterMatrix")
 data("oysterData")
 ```
 
-Have a look at oysterDist and oysterData. The rows in the distance matrix are ordered the same as the rows in the data frame. Let's see what we have named the data columns and test that the number of samples is the same in both matrix and meta data:
+Have a look at oysterMatrix and oysterData. The rows in the distance matrix are ordered the same as the rows in the data frame. Let's see what we have named the data columns and test that the number of samples is the same in both matrix and meta data:
 
 ```r
-names(metaData)
-nrow(metaData) == nrow(distMatrix)
+names(oysterData)
+nrow(oysterData) == nrow(oysterMatrix)
 ```
 
 This should return:
