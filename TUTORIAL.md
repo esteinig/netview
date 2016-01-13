@@ -64,7 +64,7 @@ We can use community (cluster) detection algorithms as a proxy for showing the e
 In order to select an appropriate k for the mkNNG, we can use multiple algorithms (to account for their variation) and plot the resulting number of clusters n against k, across k = 1 to k = 60, or approximately 3/4 N. Let's first construct the graphs with default community detection and pass them to the selection plot function:
 
 ```r
-graphs <- netview(oysterMatrix, oysterData, k=1:60, step=1, cluster = TRUE, options=oysterOptions)
+graphs <- netview(oysterMatrix, oysterData, k=1:60, cluster = TRUE, options=oysterOptions)
 kPlot <- plotSelection(graphs, options=oysterOptions)
 ```
 
@@ -72,7 +72,7 @@ kPlot <- plotSelection(graphs, options=oysterOptions)
 
 The selected algorithms show a general congruence with some variation in individual resolution across the mkNNGs. You can see, for instance, that the state-of-the-art Infomap algorithm continously detects clusters at a higher resolution, while the fast-greedy modularity optimisation detects fewer clusters in the topology of the network. The shape of the curve is inherent to mkNNGs across a wide variety of data (see [Examples]()) and shows a community-based approximation to the construction of population-level mkNNGs.
 
-At low values of k (k < 10) a large number of communities is detected. There is some important information on the genetically most similar samples in the data (for instance at k = 1, single mNNs), but little about population-wide structure. This is because at low values of k, few edges produce a sparse network and consequently, the algorithms find many isolated communities (**A**)
+At low values of k (k < 10) a large number of communities is detected. There is some important information on the genetically most similar samples in the data (for instance at k = 1, single mNNs), but little about population-wide structure. This is because at low values of k, few edges produce a sparse network and consequently, the algorithms find many isolated communities (**A**, for illustration we have selected results from Walktrap).
 
 As we increase k, the number of detected communities declines, first rapidly (k < 10) and then more slowly (k > 10). The rapidly declining range of n across k is important since it indicates where little structure is found in the topology, and we want to avoid this range of the parameter for population-level analysis.
 
@@ -94,8 +94,9 @@ Now that we have an idea of which network topologies may be appropriate for our 
 On the first run, we will also use the default community-detection algorithms (Infomap, Fast-Greedy, Walktrap) to find communities and decorate the graphs with the resulting objects. We will use these later to demonstrate how to highlight the communities of a particular mkNNG.
 
 ```r
-graphs <- netview(oysterMatrix, oysterData, k=10:60, step=5, options = oysterOptions, cluster=TRUE)
-graphsD3 <- netview(oysterMatrix, oysterData, k=10:60, step=5, options = oysterOptions, networkD3 = TRUE)
+kRange <- seq(10, 50, by=10)
+graphs <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, cluster=TRUE)
+graphsD3 <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, networkD3 = TRUE)
 ```
 
 ######Network Visualizations
@@ -199,7 +200,7 @@ We have implemented a couple of functions that allow you to run and handle outpu
 
 ```r
 results <- runAdmixture("oyster.zip", project="oyster_admixture", K=2:10, processors=2, crossValidation=20)
-results$crossError
+cvPlot <- plotValidation(results$crossError)
 ```
 
 The minimum in the cross-validation error plot is at K = 4:
