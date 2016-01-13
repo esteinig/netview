@@ -203,9 +203,10 @@ We have implemented a couple of functions that allow you to run and handle outpu
 
 ```r
 results <- runAdmixture("oyster.zip", project="oyster_admixture", K=2:10, processors=2, crossValidation=20)
+results$crossError
 ```
 
-The minimum in the cross-validation plot is at K = 4:
+The minimum in the cross-validation error plot is at K = 4:
 
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P9.jpeg)
 
@@ -214,7 +215,7 @@ We will use this value to first select a network with the same number of cluster
 If you provide your own output files for plotting (in original output format: `.Q`, `.P`). These also need to be in a zipped directory. Let's use the output from our admixture runs across K and labels from our graph data drame to plot the admixture bar-plot using [structurePlot]() at K = 4. We will use the qualitative `Dark2` colour palette from [RColorBrewer]() with all colours (`paletteN`) to distinguish the K clusters (for other available palettes, see `display.brewer.all()`). You can also pass a vector of colour names (length K) to the `palette` argument.
 
 ```r
-structurePlot <- plotAdmixture(results$out_file, oysterData, K=4, palette="Dark2", paletteN=8, structurePlot=TRUE)
+structurePlot <- plotAdmixture(results$outFile, oysterData, K=4, palette="Dark2", paletteN=8, structurePlot=TRUE)
 ```
 
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P10.jpeg)
