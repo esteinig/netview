@@ -68,7 +68,7 @@ graphs <- netview(oysterMatrix, oysterData, k=1:60, cluster = TRUE, options=oyst
 kPlot <- plotSelection(graphs, options=oysterOptions)
 ```
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P1.jpeg)
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P1.png)
 
 The selected algorithms show a general congruence with some variation in individual resolution across the mkNNGs. You can see, for instance, that the state-of-the-art Infomap algorithm continously detects clusters at a higher resolution, while the fast-greedy modularity optimisation detects fewer clusters in the topology of the network. The shape of the curve is inherent to mkNNGs across a wide variety of data (see [Examples]()) and shows a community-based approximation to the construction of population-level mkNNGs.
 
@@ -94,7 +94,7 @@ Now that we have an idea of which network topologies may be appropriate for our 
 On the first run, we will also use the default community-detection algorithms (Infomap, Fast-Greedy, Walktrap) to find communities and decorate the graphs with the resulting objects. We will use these later to demonstrate how to highlight the communities of a particular mkNNG.
 
 ```r
-kRange <- seq(10, 50, by=10)
+kRange <- seq(10, 60, by=10)
 graphs <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, cluster=TRUE)
 graphsD3 <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, networkD3 = TRUE)
 ```
