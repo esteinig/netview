@@ -53,11 +53,11 @@ data(oysterMatrix)
 
 oysterOptions <- netviewOptions(....)
 
-graphs <- netview(oysterMatrix, oysterData, k=10:60, step=5, options=oysterOptions)
+graphs <- netview(oysterMatrix, oysterData, k=1:60, options=oysterOptions)
 
-graphsD3 <- netview(oysterMatrix, oysterData, k=10:60, step=5, networkD3=TRUE, options=oysterOptions)
+graphsD3 <- netview(oysterMatrix, oysterData, k=10:60, networkD3=TRUE, options=oysterOptions)
 
-graphCommunities <- netview(oysterMatrix, oysterData, k=10:60, step=5, cluster=TRUE, options=oysterOptions)
+graphCommunities <- netview(oysterMatrix, oysterData, k=10:60, cluster=TRUE, options=oysterOptions)
 
 selectionPlot <- plotSelection(graphs, options=oysterOptions)
 ```
@@ -68,7 +68,7 @@ selectionPlot <- plotSelection(graphs, options=oysterOptions)
 Network construction, analysis and visualization is accessible via `netview` ( `?netview` ):
 
 ```r
-netview(distMatrix, metaData, k=10:60, step=5, tree= NULL, cluster=FALSE, mst=FALSE, 
+netview(distMatrix, metaData, k=10:60, tree= NULL, cluster=FALSE, mst=FALSE, 
         networkD3=FALSE, save=FALSE, project="netview", options=netviewOptions())
 ```
 
@@ -181,12 +181,13 @@ If you use the package for publication, please cite:
 * [Neuditschko et al. (2012) - NetView - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
 * [Steinig et al. (2015) - NetView P - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
 
-If you use the [Admixture]() and [structurePlot]() functions, please cite:
+If you use [Admixture](), please cite:
 
 * [Alexander et al. (2009) - Fast model-based estimation of ancestry in unrelated individuals - Genome Research](http://genome.cshlp.org/content/early/2009/07/31/gr.094052.109.abstract)
-* [Ramasamy et al. (2014) - Structure Plot: a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
 
-We adopted code from [Structure Plot](http://btismysore.in/strplot/) for visualization of results from Admixture. License Information.
+We adopted code from [Structure Plot](http://btismysore.in/strplot/) with permission from Ramasamy et al. for the visualization of results from Admixture. If you use the plots for publication, please cite:
+
+* [Ramasamy et al. (2014) - Structure Plot: a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
 
 ####Contact
 ---
