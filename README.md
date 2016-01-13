@@ -83,10 +83,9 @@ netview(distMatrix, metaData, k=10:60, tree= NULL, cluster=FALSE, mst=FALSE,
 distMatrix      matrix, symmetrical distance matrix (N x N)
 metaData        data frame, meta data ordered as rows in matrix (N)
 
-k               vector of integers, range of parameter k [10:60]
-step            integer, step to construct networks through range of k [5]
-
 tree            phylo, rooted phylogeny for cophenetic distance [NULL]
+
+k               vector of integers, range of parameter k [10:60]
 
 cluster         bool, run community-detection and add to mkNNGs [TRUE]
 mst             bool, add edges from minimum spanning tree to mkNNG [FALSE]
@@ -96,7 +95,6 @@ save            bool, save networks as .gml or .html (D3) to project directory [
 project         character, directory name in cwd and prefix for saving networks ["netview"]
 
 options         list, list of options from netviewOptions(...)
-
 ```
 
 ####Input
