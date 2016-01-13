@@ -194,9 +194,11 @@ Infomap finds the same cluster configuration, with the exception of additional s
 ######Admixture Networks
 ---
 
-An alernative approach to selecting an appropriate parameter value, would be to run supplementary analyses with other established methods such as [Admixture](). This allows you to select an optimal configuration according to the software's methods and you can then use this cluster assignment find a network topology where the selected algorithm finds an equal number of clusters. If you use NetView as a secondary analysis, you can also visualize the proportion results from your admixture analysis  as pie nodes to compare to your mkNNGs.
+An alternative approach to selecting an appropriate parameter value, would be to run supplementary analyses with other established methods such as [Admixture](). This allows you to select an optimal configuration according to the software's methods and you can then use this cluster assignment find a network topology where the selected algorithm finds an equal number of clusters. You can also visualize the proportion results from your admixture analysis as pie nodes to compare to your selected mkNNG.
 
-We have implemented a couple of functions that allow you to run and handle output from Admixture in R. You can also run the analysis separately and provide only the outputs for plotting. Tthe program must be in your $PATH. We provide the analysis function with a zip-file containing the `.bed`, `.bim`, `.fam` files of the oyster data (same sample order as data frame and distance matrix previously, see example directory) for input to Admixture. We will then run the program from K = 2 - 10 with cross-validation replicates by 20 and plot the error to select the optimal K:
+We have implemented a couple of functions that allow you to run and handle output from Admixture in R. You can also run the analysis separately and provide only the outputs for plotting. If you provide your own output files for plotting (in original output format: `.Q`, `.P`), these also need to be in a zipped directory.
+
+The program must be in your $PATH. We provide the analysis function with a zip-file containing the `.bed`, `.bim`, `.fam` files of the oyster data (same sample order as data frame and distance matrix) for input to Admixture. We will then run the program from K = 2 - 10 with cross-validation replicates by 20 and plot the error to select the optimal K:
 
 ```r
 results <- runAdmixture("oyster.zip", project="oyster_admixture", K=2:10, processors=2, crossValidation=20)
@@ -209,10 +211,11 @@ The minimum in the cross-validation error plot is at K = 4:
 
 We will use this value to first select a network with the same number of clusters according to Walktrap and compare the mkNNG to the admixture proportions per sample from Admixture. We will then use the same proportions to compare against the sub-structure network at k = 10.
 
-If you provide your own output files for plotting (in original output format: `.Q`, `.P`). These also need to be in a zipped directory. Let's use the output from our admixture runs across K and labels from our graph data drame to plot the admixture bar-plot using [structurePlot]() at K = 4. We will use the qualitative `Dark2` colour palette from [RColorBrewer]() with all colours (`paletteN`) to distinguish the K clusters (for other available palettes, see `display.brewer.all()`). You can also pass a vector of colour names (length K) to the `palette` argument.
+
+Let's use the output from our admixture runs across K and labels from our graph data drame to plot the admixture bar-plot using [Structure Plot]() at K = 4. We will use the qualitative `Dark2` colour palette from [RColorBrewer]() with all available colours (`pn = 8`) to distinguish the K clusters (for other colour scales, see `display.brewer.all()`). You can also pass a vector of colour names (length K) to the `palette` argument.
 
 ```r
-structurePlot <- plotAdmixture(results$outFile, oysterData, K=4, palette="Dark2", paletteN=8, structurePlot=TRUE)
+structurePlot <- plotAdmixture(results$outFile, oysterData, K=4, palette="Dark2", pn=8, structurePlot=TRUE)
 ```
 
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P10.jpeg)
@@ -224,7 +227,7 @@ clusters <- kPlot$Data
 clustersK4 <- clusters[clusters$n == 4 & clusters$Algorithm == "Walktrap",]
 ```
 
-This indicates four clusters at k = 25, 30 and 35. Let's have a look at the individual admixture porportions in the context of the network topology at k = 25 and k = 30, highlighting the communites derived from Walktrap:
+This indicates four clusters at k = 25, 30 and 35. Let's first have a look at the individual admixture porportions in the context of the network topology at k = 25 and k = 30, highlighting the communites derived from Walktrap:
 
 ```r
 k25 <- graphs$k25
@@ -233,9 +236,8 @@ k30 <- graphs$k30
 g25 <- plotAdmixture(results$out_file, oysterData, graph=k25, K=4, palette="Dark2", paletteN=8)
 g30 <- plotAdmixture(results$out_file, oysterData, graph=k30, K=4, palette="Dark2", paletteN=8)
 
-plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap))
-
-plot(g30, vertex.shape="pie", vertex.pie=g30$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k30$walktrap))
+p25 <- plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap))
+p30 <- plot(g30, vertex.shape="pie", vertex.pie=g30$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k30$walktrap))
 ```
 
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P12.jpeg)
