@@ -40,9 +40,7 @@ installNetView <- function(){
     if (length(new.pkg)) {
       message('--------------------------')
       install.packages(new.pkg, dependencies = TRUE) 
-      
     }
-    sapply(pkg, require, character.only = TRUE)
   }
   
   vcontrol()
