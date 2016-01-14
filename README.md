@@ -19,7 +19,7 @@ install_github("esteinig/netview")
 ###Dependencies
 ---
 
-[RStudio]() is highly recommended and the pipeline depends on some great code from the community:
+[RStudio]() is highly recommended. The pipeline depends on some great code from the community:
 
 * [cccd]()
 * [networkD3]()
@@ -30,6 +30,8 @@ install_github("esteinig/netview")
 * [reshape2]()
 * [RColorBrewer]()
 * [gplots]()
+
+You can install single dependencies with `install.packages(...)` or use the convenience function `installNetView()` to install all packages for NetView.
 
 ###Versions
 ---
