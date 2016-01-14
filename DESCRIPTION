@@ -1,0 +1,21 @@
+Package: netview
+Title: Mutual k-Nearest-Neighbour Networks for Population Analysis
+Version: 1.0
+Authors@R: person("Eike J.", "Steinig", email = "eikejoachim.steinig@my.jcu.edu.au", role = c("aut", "cre"))
+Description: NetView generates mutual k-nearest-neighbour networks for the analysis of genetic population structure. Visualization capabiliities and community detection analyses are also included, as well as convenience functions for running and visualizing output from Admixture.
+Depends:
+    R (>= 3.2.2)
+License: GPL-3
+LazyData: true
+RoxygenNote: 5.0.1
+Imports:
+	igraph (>= 1.0.1),
+	cccd (>= 1.5),
+	networkD3 (>= 0.2.6),
+	ape (>= 3.3),
+	htmlwidgets (>= 0.5),
+	gplots (>= 2.1),
+	reshape2 (>= 1.4.1),
+	RColorBrewer (>= 1.1),
+	ggplot2 (>= 1.0.1)
+
