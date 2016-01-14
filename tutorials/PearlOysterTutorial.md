@@ -1,6 +1,6 @@
 ### Pearl Oyster Tutorial
 
-*Please note that the selection plot and admixture graphs are ideas that have not been published. We are currently compiling the methods for review and publication.*
+*Please note that the selection plot and admixture graphs are ideas that have not been published yet. We are currently compiling the methods for review and publication.*
 
 * Data
 * Input
@@ -12,7 +12,7 @@
 ######Data
 ---
 
-The data used for this tutorial is from our initial analysis of 83 pearl oysters from Aru Islands, Bali and West Papua. The data files can be found at Dryad or loaded via the data function in R. For our purposes, the oyster data demonstrates the basic workflow of NetView R.
+The data used for this tutorial is from our initial analysis of 83 pearl oysters from Aru Islands, Bali and West Papua. The data files can be loaded via the data function in R. For our purposes, the oyster data demonstrates the basic workflow of NetView R. Not all data may be appropriate for analysis, please see the **`Input`** section in the README.
 
 [*Pinctada maxima*](http://dx.doi.org/10.5061/dryad.p3b3f), n = 83, genotyped at 999 SNPs after QC with PLINK v1.07:
 
@@ -94,7 +94,7 @@ Now that we have an idea of which network topologies may be appropriate for our 
 On the first run, we will also use the default community-detection algorithms (Infomap, Fast-Greedy, Walktrap) to find communities and decorate the graphs with the resulting objects. We will use these later to demonstrate how to highlight the communities of a particular mkNNG.
 
 ```r
-kRange <- seq(10, 60, by=10)
+kRange <- seq(10, 60, by=5)
 graphs <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, cluster=TRUE)
 graphsD3 <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, networkD3 = TRUE)
 ```
@@ -239,6 +239,8 @@ g30 <- plotAdmixture(results$out_file, oysterData, graph=k30, K=4, palette="Dark
 p25 <- plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap))
 p30 <- plot(g30, vertex.shape="pie", vertex.pie=g30$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(k30$walktrap))
 ```
+
+... to be continued.
 
 ![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P12.jpeg)
 
