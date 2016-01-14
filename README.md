@@ -1,10 +1,10 @@
 # NetView
 
-**Under construction, finished soon!**
-
 NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The main implementation of the pipeline is now availabe in R. 
 
-We decided to move away from Python to enable a more user-friendly access to the main command-line functions, better interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). In addition, we have been working on some ideas to select appropriate parameter values for constructing mkNNGs, combining networks analysis with results from [Admixture]() and implementing community-detection and visualization through [iGraph]().
+We decided to move away from Python to enable a more user-friendly access to the main command-line functions, better interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). In addition, we have been working on some ideas to select appropriate parameter values for constructing mkNNGs, combining networks analysis with results from [Admixture](https://www.genetics.ucla.edu/software/admixture/) and implementing community-detection and visualization through [iGraph](http://igraph.org/r/).
+
+For an introduction to the analysis of genetic population structure with NetView, see the [Pearl Oyster Tutorial](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md).
 
 If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. 
 
@@ -21,28 +21,28 @@ install_github("esteinig/netview")
 
 [RStudio]() is highly recommended. The pipeline depends on some great code from the community:
 
-* [cccd]()
-* [networkD3]()
-* [igraph]()
-* [ggplot2]()
-* [htmlwidgets]()
-* [ape]()
-* [reshape2]()
-* [RColorBrewer]()
-* [gplots]()
+* [ape](http://ape-package.ird.fr/)
+* [cccd](https://cran.r-project.org/web/packages/cccd/index.html)
+* [igraph](http://igraph.org/r/)
+* [gplots](https://cran.r-project.org/web/packages/gplots/index.html)
+* [ggplot2](http://ggplot2.org/)
+* [reshape2](https://github.com/hadley/reshape)
+* [networkD3](https://christophergandrud.github.io/networkD3/)
+* [htmlwidgets](http://www.htmlwidgets.org/)
+* [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html)
 
 You can install single dependencies with `install.packages(...)` or use the convenience function `installNetView()` to install all packages for NetView.
 
 ###Versions
 ---
 
-NetView v.1.0
+*NetView v.1.0*
 
-Core calculations in the pipeline are identical to the methods described in the publication for [NetView P]().
-
-For a user-interface with Shiny see [netviewR](https://github.com/esteinig/netviewR). This will be updated and integrated with geographical projections using [geonet]() for R.
+Core calculations in the pipeline are identical to the methods described in the publication for [NetView P](https://github.com/esteinig/netviewP).
 
 For the original Python implementation see [netviewP](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the current implementation in R.
+
+We have removed the user-interface version NetView R. It will be updated and integrated with geographical projections using [geonet](https://github.com/esteinig/geonet) and [Shiny](http://shiny.rstudio.com/).
 
 ###Quick Start
 ---
@@ -104,11 +104,11 @@ options         list, list of options from netviewOptions(...)
 
 ######Quality Control
 
-Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We would recommend a missing rate < 10% per sample across SNPs, which can be implemented, through quality control functions as implemented, for instance, in [PLINK](). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such branches prior to network construction. Homogenous sample population sizes are recommended (Neuditschko et al. 2012).
+Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We would recommend a missing rate < 10% per sample across SNPs, which can be implemented, through quality control functions as implemented, for instance, in [PLINK](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such branches prior to network construction. Homogenous sample population sizes are recommended (Neuditschko et al. 2012).
 
 ######Distance Matrix
 
-Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can, for example, construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic` from [ape]() in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, genetic or ecologigal data, distance measures) for construction of the mkNNGs.
+Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can, for example, construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic.phylo()` from [ape](http://ape-package.ird.fr/) in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, genetic or ecologigal data, distance measures) for construction of the mkNNGs.
 
 ######Data Frame
 
@@ -153,16 +153,20 @@ For additional options to configure algorithms and the visualization with networ
 
 The following function are designed to process output from NetView and Admixture. Please see the manual pages or tutorials for usage.
 
-`plotSelection(graphs, options=netviewOptions())`
+```r
+plotSelection(graphs, options=netviewOptions())
 
-`runAdmixture(file, project, K=1:10, processors=1, crossValidation=20)`
+runAdmixture(file, project, K=1:10, processors=1, crossValidation=20)
 
-`plotValidation(crossError)`
+plotValidation(crossError)
 
-`plotAdmixture(outFile, metaData, K, graph=NULL, structurePlot=FALSE, palette="Dark2", pn=8)`
+plotAdmixture(outFile, metaData, K, graph=NULL, structurePlot=FALSE, palette="Dark2", pn=8)
+```
 
 ####Algorithms
 ---
+
+*Under development...*
 
 * [Background 1: Mutual k-Nearest-Neighbour Graphs]()
 * [Background 2: Community-detection algorithms in iGraph]()
@@ -171,6 +175,9 @@ The following function are designed to process output from NetView and Admixture
 ---
 
 * [Tutorial 1: Pearl Oyster](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md)
+
+*Under development...*
+
 * [Tutorial 2: MRSA]()
 * [Recipe 1: Community Analysis]()
 * [Recipe 2: Admixture Networks]()
@@ -181,6 +188,8 @@ The following function are designed to process output from NetView and Admixture
 ####Further Reading, Links and References
 ---
 
+*Under development...*
+
 * [Links]()
 * [Reading List]()
 
@@ -189,7 +198,7 @@ If you use the package for publication, please cite:
 * [Neuditschko et al. (2012) - NetView - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
 * [Steinig et al. (2015) - NetView P - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
 
-If you use [Admixture](), please cite:
+If you use [Admixture](https://www.genetics.ucla.edu/software/admixture/), please cite:
 
 * [Alexander et al. (2009) - Fast model-based estimation of ancestry in unrelated individuals - Genome Research](http://genome.cshlp.org/content/early/2009/07/31/gr.094052.109.abstract)
 
