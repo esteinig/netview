@@ -1,3 +1,5 @@
+#'@export
+
 installNetView <- function(){
   
   packages <- c('igraph', 'cccd', 'htmlwidgets', 'networkD3', 'ape',
