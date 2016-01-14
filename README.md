@@ -136,14 +136,14 @@ nodeColour           character, name of column in data frame containing sample c
 nodeGroup            character, name of column in data frame containing sample group ["Group"]
 
 mknnWeights          include weights (distance) for edges in mkNNG [TRUE]
-mknnAlgorithm        choice of mutual k-Nearest Neighbour algorithm (cccd: ?nng ) ["cover_tree"]
+mknnAlgorithm        choice of mutual k-Nearest Neighbour algorithm ["cover_tree"]
 
-clusterAlgorithms    character vector of community algorithms (netview: ?netview) [c("Walktrap", "Infomap", "Fast-Greedy")]
+communityAlgorithms  character vector of community algorithms [c("Walktrap", "Infomap", "Fast-Greedy")]
 
 selectionPlot        numeric vector of length [3] for selection ggPlot: k-breaks, n-breaks, line-width [c(20, 5, 1)]
 selectionTitle       character, title for selection ggPlot ["K Selection mkNNGs"]
 
-For additional options to configure the visualization with networkD3 see the Documentation ( ?netview )
+For additional options to configure algorithms and the visualization with networkD3, please see manual pages ( ?netview )
 ```
 
 ####Accessory Functions
