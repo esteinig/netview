@@ -48,18 +48,18 @@ For the original Python implementation see [netviewP](https://github.com/esteini
 ---
 
 ```r
-library(netview)
+library("netview")
 
-data(oysterData)
-data(oysterMatrix)
+data("oysterData")
+data("oysterMatrix")
 
 oysterOptions <- netviewOptions(....)
 
-graphs <- netview(oysterMatrix, oysterData, k=1:60, options=oysterOptions)
+graphs <- netview(oysterMatrix, oysterData, k=1:20, options=oysterOptions)
 
 graphsD3 <- netview(oysterMatrix, oysterData, k=10:60, networkD3=TRUE, options=oysterOptions)
 
-graphCommunities <- netview(oysterMatrix, oysterData, k=10:60, cluster=TRUE, options=oysterOptions)
+graphCommunities <- netview(oysterMatrix, oysterData, k=1:60, cluster=TRUE, options=oysterOptions)
 
 selectionPlot <- plotSelection(graphs, options=oysterOptions)
 ```
@@ -151,7 +151,15 @@ For additional options to configure algorithms and the visualization with networ
 ####Accessory Functions
 ---
 
-...
+The following function are designed to process output from NetView and Admixture. Please see the manual pages or tutorials for usage.
+
+`plotSelection(graphs, options=netviewOptions())`
+
+`runAdmixture(file, project, K=1:10, processors=1, crossValidation=20)`
+
+`plotValidation(crossError)`
+
+`plotAdmixture(outFile, metaData, K, graph=NULL, structurePlot=FALSE, palette="Dark2", pn=8)`
 
 ####Algorithms
 ---
