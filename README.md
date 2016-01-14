@@ -160,7 +160,7 @@ For additional options to configure algorithms and the visualization with networ
 ####Tutorials and Examples
 ---
 
-* [Tutorial 1: Pearl Oyster]()
+* [Tutorial 1: Pearl Oyster](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md)
 * [Tutorial 2: MRSA]()
 * [Recipe 1: Community Analysis]()
 * [Recipe 2: Admixture Networks]()
