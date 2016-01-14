@@ -11,6 +11,8 @@ netviewOptions(...)
 
 \item{mknnAlgorithm}{Algorithm for mutual nearest neighbour search [ str, "cover_tree" ]}
 
+\item{communityAlgorithms}{Algorithms for community detection analysis [ str vector, c("Walktrap", "Infomap", "Fast-Greedy") ]}
+
 \item{selectionTitle}{Title for community k-Plot in plotSelection() [ str, "Community k-Plot"]}
 
 \item{selectionPlot}{Configure x- and y-axis breaks and line width of k-Plot [ int vector, c(5, 20, 1) ]}
@@ -56,8 +58,6 @@ netviewOptions(...)
 \item{d3.clickAction}{JS function for clicking a node in networkD3 [ str, NULL ]}
 
 \item{d3.linkX}{Multiplier for link distance, use instead of specifiying JS function in d3.linkWidth [ numeric, 20 ]}
-
-\item{communityAlgorithms}{Algorithms for community detection analysis [ str vector, c("Walktrap", "Infomap", "Fast-Greedy") ]}
 }
 \value{
 List of options for NetView.
