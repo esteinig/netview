@@ -1,14 +1,3 @@
-#' @export
-#' @import igraph
-#' @import cccd
-#' @importFrom htmlwidgets saveWidget
-#' @import networkD3
-#' @importFrom ape cophenetic.phylo
-#' @import gplots
-#' @import ggplot2
-#' @import reshape2
-#' @import RColorBrewer
-
 installNetView <- function(){
   
   packages <- c('igraph', 'cccd', 'htmlwidgets', 'networkD3', 'ape',
