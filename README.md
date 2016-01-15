@@ -61,7 +61,7 @@ graphsD3 <- netview(oysterMatrix, oysterData, k=10:60, networkD3=TRUE, options=o
 
 graphCommunities <- netview(oysterMatrix, oysterData, k=1:60, cluster=TRUE, options=oysterOptions)
 
-selectionPlot <- plotSelection(graphs, options=oysterOptions)
+selectionPlot <- plotSelection(graphCommunities, options=oysterOptions)
 ```
 
 ###NetView
