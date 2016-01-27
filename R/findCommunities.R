@@ -1,7 +1,5 @@
 findCommunities <- function(networks, options) {
   
-  message('Running findCommunities...')
-  
   algorithms <- options[["community.algorithms"]]
   
   for (algorithm in algorithms) {
