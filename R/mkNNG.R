@@ -17,8 +17,6 @@ mkNNG <- function(mdist=NULL, range.k=NULL, mst=FALSE, options=netview.getOption
   
   for (i in range.k) { 
     
-    message(paste('Building mkNN graph at k =', i))
-    
     require(cccd)
     
     mknn_graph <- nng(mdist, k=i, mutual=T, algorithm=mknn.algorithm)
