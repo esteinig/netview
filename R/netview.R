@@ -52,7 +52,7 @@ netview <- function(distMatrix=NULL, metaData=NULL, tree=NULL, k=10:60, cluster=
   if(!is.null(tree)){
     
     # Order cophenetic matrix and data:
-    metaData <- metaData[order(metaData$ID),] 
+    metaData <- metaData[order(metaData[[options[["nodeID"]]]]),] 
     dist <- cophenetic.phylo(tree)
     distMatrix <- dist[order(rownames(dist)), order(colnames(dist))]
     
