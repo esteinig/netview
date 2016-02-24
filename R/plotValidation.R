@@ -16,11 +16,11 @@ plotValidation <- function(crossError) {
   
   require(ggplot2)
   
-  df <- data.frame(K=names(cross_error), CVE=cross_error)
+  df <- data.frame(K=names(crossError), CVE=crossError)
 
   p <- ggplot(data=df, aes(x=K, y=CVE)) + geom_line(aes(group=1)) + geom_point(size=3) +
     theme(legend.position="none", panel.grid.minor = element_blank()) +
-    scale_x_discrete(limits=names(cross_error), labels=names(cross_error)) + ylab('Cross-Validation Error\n') + xlab('\nK')
+    scale_x_discrete(limits=names(crossError), labels=names(crossError)) + ylab('Cross-Validation Error\n') + xlab('\nK')
   
   return(p)
   
