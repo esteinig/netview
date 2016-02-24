@@ -1,12 +1,6 @@
-makeAdmixtureGraph <- function(qFiles, colours, graph, K) {
+makeAdmixtureGraph <- function(qDF, colours, graph) {
   
-  df <- qFiles[[as.character(K)]]
-  
-  df$Group <- NULL
-  df$ID <- NULL
-  
-  dm <- as.matrix(df)
-  
+  dm <- as.matrix(qDF)
   
   values <- lapply(seq(1, vcount(graph), 1), function(x) { 
     row <- dm[x,]

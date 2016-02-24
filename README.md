@@ -127,7 +127,7 @@ Network construction, plots and visualizations can be configured via `netviewOpt
 
 ```r
 defaultOptions <- netviewOptions()
-optionsExample <- netviewOptions(mknnWeights=TRUE, nodeGroup="Population")
+optionsExample <- netviewOptions(mknnWeights=TRUE, nodeGroup="Population", nodeID="ID", nodeColour="Colour")
 ```
 
 ######Parameters:
@@ -156,11 +156,11 @@ The following function are designed to process output from NetView and Admixture
 ```r
 plotSelection(graphs, options=netviewOptions())
 
-runAdmixture(file, project, K=1:10, processors=1, crossValidation=20)
+runAdmixture(filePath, K=1:10, processors=1, crossValidation=20, plotValidation=FALSE, admixturePath=NULL)
 
-plotValidation(crossError)
+plotAdmixture(qFile, metaData, graph=NULL, structurePlot=FALSE, palette="Dark2", colourN=8)
 
-plotAdmixture(outFile, metaData, K, graph=NULL, structurePlot=FALSE, palette="Dark2", pn=8)
+findKeyContributors(relMatrix, metaData, paranIterations=100, paranCentile=99, distMatrix=FALSE, verbose=TRUE)
 ```
 
 ####Algorithms

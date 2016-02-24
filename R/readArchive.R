@@ -23,7 +23,7 @@ readArchive <- function(data, archive) {
     names <- sapply(pops, function(x){ paste0('Pop', x) })
     q_matrix <- cbind(Population = id, q_matrix)
     q_matrix <- cbind(ID = pop, q_matrix)
-    names(q_matrix) <- append(c('Population', 'ID'), names)
+    names(q_matrix) <- append(c('Group', 'ID'), names)
     return(q_matrix)
   })
   

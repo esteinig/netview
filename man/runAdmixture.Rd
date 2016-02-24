@@ -2,33 +2,30 @@
 % Please edit documentation in R/runAdmixture.R
 \name{runAdmixture}
 \alias{runAdmixture}
-\title{Admixture}
+\title{runAdmixture}
 \usage{
-runAdmixture("oyster.zip", oysterData, K=1:10, ...)
+runAdmixture(filePath="/home/esteinig/admixture/butterflyfish.bed", K=1:10, processors=1, crossValidation=20, plotValidation=FALSE)
 }
 \arguments{
-\item{file}{Zipped input data for Admixture containing PLINK binary files, ordered same as metaData for NetView}
-
-\item{project}{Name of temporary output directory and final zipped output file for plotAdmixture() [ str, "admixture_graph" ]}
+\item{filePath}{Path to input files, either '.bed', '.ped' or '.geno' (see Admixture Manual)}
 
 \item{K}{Range of K for Admixture [ int vector, 1:10]}
 
 \item{processors}{Number of processors for analysis [ int, 1 ]}
 
 \item{crossValidation}{Number of cross-validation error iterations [ int, 20 ]}
+
+\item{plotValidation}{Return plot of cross-validation error across runs [ bool, FALSE ]}
+
+\item{admixturePath}{Path to admixture executable [ str, NULL ]}
 }
 \value{
-Graph object with data for plotting admixture proportions or bar plot from Structure Plot.
+K-named vector containing cross-validation errors or plot of cross-validation error across K.
 }
 \description{
 Convenience function for running Admixture.
 }
 \details{
-For examples and tutorials, please see our GitHub Repository: \url{https://github.com/esteinig/netview}
-\itemize{
-     \item{Input files should be generated in PLINK, using the "make-bed" option (.bed, .bim, .fam)}
-     \item{Admixture executable needs to be in $PATH}
-     \item{If you encounter an error during analysis, please delete the temporary directory and reset your current working directory before running the analysis again}
-     }
+Admixture executable can be in $PATH. If this is not working, you can specify the full path to the executable in admixturePath. For examples and tutorials, please see our GitHub Repository: \url{https://github.com/esteinig/netview}
 }
 

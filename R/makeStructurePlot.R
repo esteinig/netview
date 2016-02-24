@@ -9,11 +9,11 @@
 # Springerplus. 2014 Aug 13;3:431. doi: 10.1186/2193-1801-3-431. eCollection 2014.
 # http://btismysore.in/strplot/index.php
 
-makeStructurePlot <- function(colours, qFiles, K, save=F) {
+makeStructurePlot <- function(qDF, metaData, colours, options) {
   
-  data<- qFiles[[as.character(K)]]
-  
-  dat1 <- data
+  qDF <- cbind("id" = metaData[[options[["nodeID"]]]], qDF)
+  qDF <- cbind("group" = metaData[[options[["nodeGroup"]]]], qDF)
+  dat1 <- qDF
   
   #################Roundoff#########
   K=ncol(dat1)-2
@@ -54,7 +54,7 @@ makeStructurePlot <- function(colours, qFiles, K, save=F) {
   suppressWarnings(dat1<-dat1[with(dat1, order(value)), ])
   dat_Sor<-melt(dat_Sor)
   #######
-  colnames(dat_Sor)<-c("GROUP", "id", "variable", "value")
+  colnames(dat_Sor) <- c("GROUP", "id", "variable", "value")
   suppressWarnings(dat_Sor$id <- factor(dat_Sor$id, levels=dat_Sor$id))
   suppressWarnings(dat_Sor<-dat_Sor[with(dat_Sor, order(value)), ])
   ########
@@ -65,53 +65,14 @@ makeStructurePlot <- function(colours, qFiles, K, save=F) {
   xxaxis<-theme(axis.ticks.x=element_blank(),axis.text.x = element_text(colour="black", angle=0, hjust=0), legend.position="none")
   
   pal <- colours
-  
   bar_colour <- 'black'
-  Labels <- 'Group'
-  Sort <- 'O'
   
-  ########## No labels ################
-  if (Labels=='None'){
-    if (Sort=='O'){
-      p<-ggplot(data=dat1, aes(x=id, y=value, fill=variable))+geom_bar(stat="identity", width=1, colour=bar_colour)+scale_y_continuous(expand = c(0,0))+ 
-        scale_fill_manual(values = pal)
-      q<-p+panel+xlab(" ")+ylab(" ")+ xaxis+yaxis
-    }
-    if (Sort=='K'){
-      p<-ggplot(data=dat_Sor, aes(x=id, y=value, fill=variable))+geom_bar(stat="identity", width=1, colour=bar_colour)+scale_y_continuous(expand = c(0,0))+ 
-        scale_fill_manual(values = pal)
-      q<-p+panel+xlab(" ")+ylab(" ")+ xaxis+yaxis
-    }
-  }
-  ################ IND labels ################
-  if (Labels=='Name'){
-    if (Sort=='O'){
-      p<-ggplot(data=dat1, aes(x=id, y=value, fill=variable))+geom_bar(stat="identity", width=1, colour=bar_colour)+scale_y_continuous(expand = c(0,0))+ 
-        scale_fill_manual(values = pal)
-      q<-p+panel+xlab(" ")+ylab(" ")+ xxaxis+yaxis
-    }
-    if (Sort=='K'){
-      p<-ggplot(data=dat_Sor, aes(x=id, y=value, fill=variable))+geom_bar(stat="identity", width=1, colour=bar_colour)+scale_y_continuous(expand = c(0,0))+ 
-        scale_fill_manual(values = pal)
-      q<-p+panel+xlab(" ")+ylab(" ")+ xxaxis+yaxis
-    }
-  }
-  
-  ##### Printing Group labels ################ 
-  if(Labels=='Group'){
-    if(Sort== 'O'){
-      gb<-tapply(as.numeric(dat1$id), dat1$GROUP, 
-                 function(x) levels(dat1$id[])[floor(median(x))])
-      p<-ggplot(data=dat1, aes(x=id, y=value, fill=variable))+ geom_bar(stat="identity", width=1, colour=bar_colour)+  scale_y_continuous(expand = c(0,0))+ 
-        scale_fill_manual(values = pal)
-      q<-p+ panel + xlab("")+ylab("") + yaxis+ xxaxis+
-        scale_x_discrete(breaks=gb, labels=names(gb)) 
-    }
-  }
-  
-  if(save==TRUE){
-    ggsave('structurePlot.pdf', plot=q, height=1024, width=768)
-  }
+  gb<-tapply(as.numeric(dat1$id), dat1$GROUP, 
+             function(x) levels(dat1$id[])[floor(median(x))])
+  p<-ggplot(data=dat1, aes(x=id, y=value, fill=variable))+ geom_bar(stat="identity", width=1, colour=bar_colour)+  scale_y_continuous(expand = c(0,0))+ 
+    scale_fill_manual(values = pal)
+  q<-p+ panel + xlab("")+ylab("") + yaxis+ xxaxis+
+    scale_x_discrete(breaks=gb, labels=names(gb)) 
   
   return(q)
 }

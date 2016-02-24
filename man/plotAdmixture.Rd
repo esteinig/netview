@@ -4,22 +4,20 @@
 \alias{plotAdmixture}
 \title{Admixture Plots}
 \usage{
-plotAdmixture("oyster_output.zip", oysterData, K=4, ...)
+plotAdmixture(qFile="oyster.4.Q", metaData=oysterData, graph=NULL, structurePlot=T, palette="Dark2", colourN=8)
 }
 \arguments{
-\item{outFile}{Zipped output from Admixture containing original files: .Q and .P}
+\item{qFile}{Output file for ancestry proportions from Admixture (.Q)}
 
-\item{metaData}{Data frame with meta data as for NetView; required columns 'ID', 'Group' and 'Colour'.}
-
-\item{K}{Plot admixture proportions at selected number of clusters K}
+\item{metaData}{Data frame with meta data as for NetView; required columns 'ID', 'Group' and 'Colour'}
 
 \item{graph}{Network object iGraph for generating Admixture Graph [ graph, NULL ]}
 
 \item{structurePlot}{Generate admixture proportion bar plot using Structure Plot [ bool, TRUE ]}
 
-\item{palette}{Colour palette from RColorBrewer clusters K [ str, "Dark2" ]}
+\item{palette}{Colour palette from RColorBrewer or vector of colours (length K) [ str, "Dark2" ]}
 
-\item{pn}{Number of colours to include in palette, see RColorBrewer [ int, 8 ]}
+\item{colourN}{Number of colours to include in palette, see RColorBrewer [ int, 8 ]}
 }
 \value{
 Graph object with data for plotting admixture proportions or bar plot from Structure Plot.

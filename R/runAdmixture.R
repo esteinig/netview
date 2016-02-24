@@ -1,50 +1,35 @@
-#' Admixture
+#' runAdmixture
 #' 
 #' Convenience function for running Admixture.
 #' 
-#' @param file              Zipped input data for Admixture containing PLINK binary files, ordered same as metaData for NetView
-#' @param project           Name of temporary output directory and final zipped output file for plotAdmixture() [ str, "admixture_graph" ]
+#' @param filePath          Path to input files, either '.bed', '.ped' or '.geno' (see Admixture Manual)
 #' @param K                 Range of K for Admixture [ int vector, 1:10]
 #' @param processors        Number of processors for analysis [ int, 1 ]
 #' @param crossValidation   Number of cross-validation error iterations [ int, 20 ]
+#' @param plotValidation    Return plot of cross-validation error across runs [ bool, FALSE ] 
+#' @param admixturePath     Path to admixture executable [ str, NULL ]        
 #' 
-#' @return Graph object with data for plotting admixture proportions or bar plot from Structure Plot.
+#' @return K-named vector containing cross-validation errors or plot of cross-validation error across K.
 #' 
-#' @usage runAdmixture("oyster.zip", oysterData, K=1:10, ...)
+#' @usage runAdmixture(filePath="/home/esteinig/admixture/butterflyfish.bed", K=1:10, processors=1, crossValidation=20, plotValidation=FALSE)
 #' 
-#' @details For examples and tutorials, please see our GitHub Repository: \url{https://github.com/esteinig/netview}
-#' \itemize{
-#'      \item{Input files should be generated in PLINK, using the "make-bed" option (.bed, .bim, .fam)}
-#'      \item{Admixture executable needs to be in $PATH}
-#'      \item{If you encounter an error during analysis, please delete the temporary directory and reset your current working directory before running the analysis again}
-#'      }
-#'      
+#' @details Admixture executable can be in $PATH. If this is not working, you can specify the full path to the executable in admixturePath. For examples and tutorials, please see our GitHub Repository: \url{https://github.com/esteinig/netview}
+
 #' @export
 
-runAdmixture <- function(file, project='admixture_graph', K=1:10, processors=1, crossValidation=20) {
-  
-  wd <- getwd()
-  
-  adm_path <- file
-  
-  target_dir <- file.path(wd, project)
-  
-  files <- unzip(adm_path, list = F, exdir = target_dir) 
-  
-  file_paths <- unzip(adm_path, list = T, exdir = target_dir)
-  
-  setwd(target_dir)
+runAdmixture <- function(filePath, K=1:10, processors=1, crossValidation=20, plotValidation=FALSE, admixturePath=NULL) {
   
   cross_error <- c()
   
-  adm_cv <- crossValidation
-  adm_proc <- processors
-  
   for (k in K) {
     
-    print(paste0('admixture --cv=', adm_cv, ' ', '-j', adm_proc, ' ', file_paths$Name[1], ' ', k))
+    if(is.null(admixturePath)){
+      admixturePath <- "admixture"
+    }
     
-    out <- system(paste0('admixture --cv=', adm_cv, ' ', '-j', adm_proc, ' ', file_paths$Name[1], ' ', k), intern = T)
+    print(paste0(admixturePath, ' ', '--cv=', crossValidation, ' ', '-j', processors, ' ', filePath, ' ', k))
+    
+    out <- system(paste0(admixturePath, ' ', '--cv=', crossValidation, ' ', '-j', processors, ' ', filePath, ' ', k), intern = T)
     
     print(out)
     
@@ -53,18 +38,24 @@ runAdmixture <- function(file, project='admixture_graph', K=1:10, processors=1, 
     cross_error <- append(cross_error, cv)
   } 
   
-  outfiles <- list.files(target_dir, full.names = F)
-  
-  zip(file.path(wd, paste0(project, '.zip')), files=outfiles)
-  
-  setwd(wd)
-  
-  unlink(target_dir, force = T, recursive = T)
-  
   names(cross_error) = K
   
-  results = list("outFile" = file.path(wd, paste0(project, '.zip')), "crossError" = cross_error)
-  
-  return(results)
+  if (plotValidation==TRUE){
+    
+    require(ggplot2)
+    
+    df <- data.frame(K=names(cross_error), CVE=cross_error)
+    
+    p <- ggplot(data=df, aes(x=K, y=CVE)) + geom_line(aes(group=1)) + geom_point(size=3) +
+      theme(legend.position="none", panel.grid.minor = element_blank()) +
+      scale_x_discrete(limits=names(cross_error), labels=names(cross_error)) + ylab('Cross-Validation Error\n') + xlab('\nK')
+    
+    return(p) 
+    
+  } else {
+    
+    return(cross_error)
+    
+  }
   
 }
