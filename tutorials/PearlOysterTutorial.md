@@ -23,7 +23,7 @@ The data used for this tutorial is from our initial analysis of 83 pearl oysters
 
 Shared-allele distance matrix via `--distance-matrix` in PLINK.
 
-######Loading and Checking Data for NetView
+######Loading Data for NetView
 ---
 
 Let's get started and load the data frame and the distance matrix from the package data:
@@ -34,41 +34,27 @@ data("oysterMatrix")
 data("oysterData")
 ```
 
-Have a look at oysterMatrix and oysterData. The rows in the distance matrix are ordered the same as the rows in the data frame. Let's see what we have named the data columns and test that the number of samples is the same in both matrix and meta data:
+Have a look at oysterMatrix and oysterData. The rows in the distance matrix are ordered the same as the rows in the data frame. Let's see what we have named the data columns and test that the number of samples is the same in both matrix and meta data. Colour is defined for each population. The group attribute will be used later to colour the nodes in the networks with networkD3. For more options see `netviewOptions`:
 
 ```r
-names(oysterData)
-nrow(oysterData) == nrow(oysterMatrix)
+oysterOptions <- netviewOptions(selectionTitle="Oyster k-Selection", nodeID="ID", nodeGroup="Group", nodeColour="Colour", communityAlgorithms=c("Walktrap", "Infomap", "Fast-Greedy"))
 ```
 
-This should return:
-
-```
-[1] "ID" "Group" "Colour" 
-[1] TRUE
-```
-
-In the data frame, colour is defined for each population. The group attribute will be used later to colour the nodes in the networks with networkD3. We also set a title for our k-selection plot, for more options see `netviewOptions`:
-
-```r
-oysterOptions <- netviewOptions(selectionTitle="Oyster k-Selection")
-```
-
-######Selecting k for mNNGs
+######NetView R
 ---
 
 Before we run the final networks, we want to know an appropriate value for k, which defines the maximum number of mutual nearest neighbours that can be connected by edges during construction of the mkNNG. The choice of an optimal value of k is still a challenge (Neuditschko et al. 2012). Essentially, we are looking for a network topology within the possible range of mkNNGs that represents the genetic similarity of isolates at an appropriate level of resolution on the genetic structure in the data, depending on your question and application of your data. We also want to avoid the selection of a network that has very little information on population-wide structure. 
 
 We can use community (cluster) detection algorithms as a proxy for showing the effect of k on the construction and structure of the mkNNG. There are inherent differences to the way these algorithms detect communities in the network topology. Further reading can be found in the [Community-Detection]() section and the [Reading List](). 
 
-In order to select an appropriate k for the mkNNG, we can use multiple algorithms (to account for their variation) and plot the resulting number of clusters n against k, across k = 1 to k = 60, or approximately 3/4 N. Let's first construct the graphs with default community detection and pass them to the selection plot function:
+In order to select an appropriate k for the mkNNG, we can use multiple algorithms (to account for their variation) and plot the resulting number of clusters n against k, across k = 1 to k = 60, or approximately 3/4 * N. Let's first construct the graphs with default community detection as defined above and pass them to `plotSelection`:
 
 ```r
 graphs <- netview(oysterMatrix, oysterData, k=1:60, cluster = TRUE, options=oysterOptions)
 kPlot <- plotSelection(graphs, options=oysterOptions)
 ```
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P1.png)
+![](https://github.com/esteinig/netview/blob/master/img/Oyster_Selection.png)
 
 The selected algorithms show a general congruence with some variation in individual resolution across the mkNNGs. You can see, for instance, that the state-of-the-art Infomap algorithm continously detects clusters at a higher resolution, while the fast-greedy modularity optimisation detects fewer clusters in the topology of the network. The shape of the curve is inherent to mkNNGs across a wide variety of data (see [Examples]()) and shows a community-based approximation to the construction of population-level mkNNGs.
 
@@ -82,22 +68,9 @@ In the slowly declining part of the k-selection plot, fine-scale structures emer
 
 As k increases, n decreases in the elbow of the plot until it stabilizes in the tail - this region shows the values for k, at which we construct a network depicting the large-scale similarity of samples in the mkNNG (**C** and **D**).
 
-The plot is representative of the 'zoom' effect discussed by Neuditschko et al. (2012). Although not suggesting an optimal value for k, in the oyster data we can limit our range to k >= 10 and select either a lower value for higher resolution on the fine-scale structures in the network or a more conservative value for looking at large-scale structure in the tail of the plot at approximately k >= 30. The ultimate choice depends on your questions on the data and purpose of your study and should be justified in the application to your data.
+The plot is representative of the 'zoom' effect discussed by Neuditschko et al. (2012). Although not suggesting an optimal value for k, in the oyster data we can limit our range to k >= 10 and select either a lower value for higher resolution on the fine-scale structures in the network or a more conservative value for looking at large-scale structure in the tail of the plot at approximately k >= 25. The ultimate choice depends on your questions on the data and purpose of your study and should be justified in the application of your data.
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_Panel.png)
-
-######Running NetView
----
-
-Now that we have an idea of which network topologies may be appropriate for our analysis, let's generate the networks. We will make two runs to generate a list of network objects for visualization in iGraph and a list of widgets holding the D3 visualization with networkD3. We will compute the networks from k = 10 to k = 60 in increments of 5 and use our previously defined oysterOptions. 
-
-On the first run, we will also use the default community-detection algorithms (Infomap, Fast-Greedy, Walktrap) to find communities and decorate the graphs with the resulting objects. We will use these later to demonstrate how to highlight the communities of a particular mkNNG.
-
-```r
-kRange <- seq(10, 60, by=5)
-graphs <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, cluster=TRUE)
-graphsD3 <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, networkD3 = TRUE)
-```
+![](https://github.com/esteinig/netview/blob/master/img/Oyster_Panel2.png)
 
 ######Network Visualizations
 ---
@@ -109,18 +82,13 @@ A great thing about networks is that you can attach meta data of your samples to
 Ok, let's start with simple plotting in iGraph. The graph objects get decorated with the Fruchtermann-Reingold layout in NetView, but we can change [layouts](http://www.inside-r.org/packages/cran/igraph/docs/layout) and vertex (node) attributes using the adapted [plot function](http://igraph.org/r/doc/plot.common.html) from iGraph:
 
 ```r
-# Get graphs from list
+
 k10 <- graphs$k10
 
-# Simple plot with iGraph
+# Simple plot
 plot(k10)
-```
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P11.jpeg)
-
-That's nice, but you can use the full range of options for plotting to configure your graph, for example:
-
-```r
+# Clean plot
 plot(k10, vertex.size=7, vertex.label=NA)
 
 # Plot with different layout (Kamada-Kawai)
@@ -130,9 +98,10 @@ plot(k10, vertex.size=7, vertex.label=NA, layout=layout.kamada.kawai(k10))
 plot(k10, vertex.size=7, vertex.label=as.character(oysterData$ID))
 ```
 
-Ok, there are a lot of things to customize your graph with, but let's see the interactive version with networkD3:
+Ok, there are a lot of things to customize your graph with, but let's see the interactive version with `networkD3`:
 
 ```r
+graphsD3 <- netview(oysterMatrix, oysterData, k=kRange, options = oysterOptions, networkD3 = TRUE)
 graphsD3$k10
 ```
 
@@ -141,55 +110,26 @@ Hover over nodes to see their ID and play around with the force-directed layout,
 ######Selecting networks and cluster configurations from mkNNGs
 ---
 
-How do we select the *right* configuration of the mkNNG? Unfortunately, there is no one-value-fits-it-all solution - a succinct comment on cluster selection can be found in the [DAPC Tutorial]() by Thibaut Jombart. Instead, the selection of an appropriate topology and community-resolution depends on what we ask from our data. 
+How do we select the *right* configuration of the mkNNG? Unfortunately, there is no one-value-fits-it-all solution (a succinct and applicable comment on cluster selection can be found in the [DAPC Tutorial]() by Thibaut Jombart). Instead, the selection of an appropriate topology and community-resolution depends on what we ask from our data. 
 
-Are we interested in the large-scale population-level structure, e.g. to investigate admixed populations or define clades in a phylogeny? Or are we interested in the potential fine-scale sub-structure within the populations, e.g. for family-level analysis of breeding populations? Or are we interested in only finding the single mNN for each sample in the network to trace high genetic similarity in a geographical context (see [MRSA Tutorial]())? 
+Are we interested in the large-scale population-level structure, e.g. to investigate admixed populations or define clades in a phylogeny? Or are we interested in the potential fine-scale sub-structure within the populations, e.g. for family-level analysis of breeding populations? Or are we interested in only finding the single mNN for each sample in the network to trace high genetic similarity in a geographical context? 
 
-In fine-scale mkNNGs, pedigree data or detailed meta data for samples can help to validate structures in the topology. For exampe, we used manual pedigree data to trace genetic lineages in networks of cultured *P. maxima* and found that the network topology at k = 10 accurately grouped related individuals and families at a high-resolution (Steinig et al. 2015).
+In fine-scale mkNNGs, pedigree data or detailed meta data for samples can help to validate structures observed in the netwrok topology. For exampe, we used manual pedigree data to trace genetic lineages in networks of cultured *P. maxima* and found that the network topology at k = 10 accurately grouped related individuals and families at a high-resolution (Steinig et al. 2015).
 
 Although we have limited our range of k using the selection plot, we still need to look at some configurations within this range and finally, select one or more networks appropriate for discussion or further analysis. Regarding the oyster populations, we are interested in the large-scale admixture of the three geographically distinct populations, as well as potential sub-structures within each population. 
 
-Let's look at networks and communities in the tail of the selection plot (k = 40), in the elbow (k = 25) and finally at our resolution threshold at k = 10. We will highlight the lower-resolution communities from Walktrap and compare them against Infomap communities at k = 10 in order to show the difference in algorithm choice:
+Let's look at networks and communities in the tail of the selection plot (k = 40, 25), in the elbow (k = 10) and finally beyond the resolution threshold at k = 5, with communities derived from Walktrap.
 
 ```r
-k40 <- graphs$k40
-k25 <- graphs$k25
-k10 <- graphs$k10
-
-plot(k40, vertex.size=7, vertex.label=NA, mark.groups=communities(k40$walktrap))
-plot(k25, vertex.size=7, vertex.label=NA, mark.groups=communities(k25$walktrap))
-plot(k10, vertex.size=7, vertex.label=NA, mark.groups=communities(k10$walktrap))
+plot(graphs$k40, vertex.size=7, vertex.label=NA, mark.groups=communities(graphs$k40$walktrap))
+plot(graphs$k25, vertex.size=7, vertex.label=NA, mark.groups=communities(graphs$k25$walktrap))
+plot(graphs$k10, vertex.size=7, vertex.label=NA, mark.groups=communities(graphs$k10$walktrap))
+plot(graphs$k5, vertex.size=7, vertex.label=NA, mark.groups=communities(graphs$k5$walktrap))
 ```
 
-######k = 40
----
+![](https://github.com/esteinig/netview/blob/master/img/Oyster_Panel1.png)
 
-At k = 40, the network topology and  clusters show the admixed populations from Bali (blue) and West-Papua (purple), a separate population of Aru Islands (green) and some interesting, separating oysters from Bali and West Papua, which get grouped with Aru Islands.
-
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P5.jpeg)
-
-######k = 25
----
-
-At k = 25, the population at West Papua separates partially from Bali, while  the separating samples fro Bali and West Papua remain connected to Aru as well as forming a separate group with oysters from West Papua. 
-
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P6.jpeg)
-
-######k = 10
----
-
-At k = 10, the network does not remain fully connected but seperates into modules. At the threshold resolution, fine-scale structure within the populations is evident in Aru Islands (retaining two separate samples from Bali), as well as the formation of single groups from Bali (previously in main Bali) and West Papua (previously connected to Aru). 
-
-Additional structure is indicated within the main population from West Papua, but is not detected by the Walktrap algorithm. Connecting individuals from Bali and West Papua are grouped in a small cluster and one sample from Aru Islands is singled out with no mNNs. At the limit of our resolution of the network, it is therefore useful to know the context of the modules at higher values of k.
-
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P7.jpeg)
-
-######k = 10 with Infomap
----
-
-Infomap finds the same cluster configuration, with the exception of additional substructure in the main population of West Papua, as indicated in the distribution of edges between the two sub-structure in the network topology.
-
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P8.jpeg)
+At k = 40, two communities are evident, corresponding to an admixed Bali and West-Papua, and a separate population at Aru Islands. A subgroup from West-Papua clusters out at k = 40 , while at k = 25, the genetically distinct population of West-Papua separates mostly from Bali. However, a few individuals from West-papua still cluster distinctly with Bali, suggesting admixture between the two populations - we will investigate this further using the program Admixture (see below). At k = 10, this pattern is expressed more strongly, and we can see a distinct singleton oyster from Aru Island. A progressive dissolution of the network can be observed at lower values of the parameter (e.g. k = 5) as indicated in the selectio nplot and should not be used for analysis
 
 ######Admixture Networks
 ---
@@ -200,47 +140,37 @@ This is also a beautiful way to visualize admixture between hybrids and backcros
 
 We have implemented a couple of functions that allow you to run and handle output from Admixture in R. You can also run the analysis separately and provide only the outputs for plotting.
 
-**The program must be in your $PATH**. We provide the analysis function with the path to for input to [Admixture](https://www.genetics.ucla.edu/software/admixture/admixture-manual.pdf). We will then run the program from K = 2 - 10 with cross-validation replicates by 20 and plot the error to select the optimal K:
+We provide the analysis function with the path for the input file to [Admixture](https://www.genetics.ucla.edu/software/admixture/admixture-manual.pdf) - if R cannot find the executable in your $PATH, you can specify the full path manually in the parameter `admixturePath`. We then run the program from K = 2 - 10 with cross-validation replicates by 20 and plot the error to select the optimal K:
 
 ```r
-cvePlot <- runAdmixture("/home/esteinig/oyster.ped", project="oyster_admixture", K=2:10, processors=2, crossValidation=20, plotValidation=T)
+cvePlot <- runAdmixture("/home/esteinig/oyster.ped", K=2:10, processors=2, crossValidation=20, plotValidation=T)
 ```
 
 The minimum in the cross-validation error plot is at K = 4:
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P9.jpeg)
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_CVE.jpeg)
 
 We will use this value to first select a network with the same number of clusters according to Walktrap and compare the mkNNG to the admixture proportions per sample from Admixture. We will then use the same proportions to compare against the sub-structure network at k = 10.
 
-Let's use the ancestr proportion output at K = 4 (`oyster.4.Q`) and labels from our meta data frame to plot the admixture bar-plot using [Structure Plot](). We will use the default qualitative `Dark2` colour palette from [RColorBrewer]() with all available colours (`pn = 8`) to distinguish the K clusters (for other colour scales, see `display.brewer.all()`). You can also pass a vector of colour names (length K) to the `palette` argument.
+Let's use the ancestry proportion output at K = 4 (`oyster.4.Q`) and labels from our meta data frame to plot the admixture bar-plot using [Structure Plot](). We will use the default qualitative `Dark2` colour palette from [RColorBrewer]() with all available colours (`pn = 8`) to distinguish the K clusters (for other colour scales, see `display.brewer.all()`). You can also pass a vector of colour names (length K) to the `palette` argument.
 
 ```r
 structurePlot <- plotAdmixture("/home/esteinig/oyster.4.Q", oysterData, structurePlot=TRUE)
 ```
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P10.jpeg)
+![](https://github.com/esteinig/netview/blob/master/img/Tutorial_StructurePlot.jpeg)
 
-Earlier, we ran the Walktrap community-detection on our mkNNGs. Let's use the k-selection plot data to find a network configuration with Walktrap, that also contains four clusters:
-
-```r
-clusters <- kPlot$Data
-clustersK4 <- clusters[clusters$n == 4 & clusters$Algorithm == "Walktrap",]
-```
-
-This indicates four clusters at k = 25, 30 and 35. Let's first have a look at the individual admixture porportions in the context of the network topology at k = 25 and k = 30, highlighting the communites derived from Walktrap:
+Let's visualize the ancestry proportions in the context of the genetic networks we constructed earlier - since we are interested in the fine-scale structures and we also found four distinct communities at k = 10 (excluding the singleton from Aru Islands), let's make the admixture network at k = 10.
 
 ```r
-g25 <- plotAdmixture("/home/esteinig/oyster.4.Q", oysterData, graph=k25, structurePlot=F)
-g30 <- plotAdmixture("/home/esteinig/oyster.4.Q", oysterData, graph=k30, structurePlot=F)
+g10 <- plotAdmixture("/home/esteinig/oyster.4.Q", oysterData, graph=graphs$k10, structurePlot=F)
+g25 <- plotAdmixture("/home/esteinig/oyster.4.Q", oysterData, graph=graphs$k25, structurePlot=F)
 
-p25 <- plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(g25$walktrap))
-p30 <- plot(g30, vertex.shape="pie", vertex.pie=g30$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(g30$walktrap))
+plot(g10, vertex.shape="pie", vertex.pie=g10$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(g10$walktrap))
+plot(g25, vertex.shape="pie", vertex.pie=g25$pie.values, vertex.size=7, vertex.label=NA, mark.groups=communities(g25$walktrap))
+
 ```
 
-... to be continued.
+Generall, individuals with a higher admixture proportion are located at the periphery of the clusters and connect with samples according to their ancestry proportions, while less admixed individuals tend to stay in the center of the clusters. A notable example is the oyster from Bali at k = 10, which has the highest ancestry proportion with Aru Islands and is ultimately clustered with other oysters from Aru. These trends confirm the congruence of the methods and the admixture graph neatly visualizes both data types at the same time.
 
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P12.jpeg)
-
-![](https://github.com/esteinig/netview/blob/master/img/Tutorial_P13.jpeg)
-
-
+![](https://github.com/esteinig/netview/blob/master/img/Oyster_Admixture.png)

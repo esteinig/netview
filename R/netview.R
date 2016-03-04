@@ -76,7 +76,7 @@ netview <- function(distMatrix=NULL, metaData=NULL, tree=NULL, k=10:60, cluster=
     graphs <- lapply(graphs, function(g) {
       
       V(g)$color <- as.character(metaData[[options[["nodeColour"]]]])
-      V(g)$id <- as.character(metaData[[options[["nodeID"]]]])
+      V(g)$name <- as.character(metaData[[options[["nodeID"]]]])
       V(g)$group <- as.character(metaData[[options[["nodeGroup"]]]])
       
       return(g)

@@ -23,6 +23,7 @@ install_github("esteinig/netview")
 
 * [ape](http://ape-package.ird.fr/)
 * [cccd](https://cran.r-project.org/web/packages/cccd/index.html)
+* [paran](https://cran.r-project.org/web/packages/paran/index.html)
 * [igraph](http://igraph.org/r/)
 * [gplots](https://cran.r-project.org/web/packages/gplots/index.html)
 * [ggplot2](http://ggplot2.org/)
@@ -36,13 +37,15 @@ You can install single dependencies with `install.packages(...)` or use the conv
 ###Versions
 ---
 
-*NetView v.1.0*
+*NetView v.1.1*
 
 Core calculations in the pipeline are identical to the methods described in the publication for [NetView P](https://github.com/esteinig/netviewP).
 
 For the original Python implementation see [netviewP](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the current implementation in R.
 
 We have removed the user-interface version NetView R. It will be updated and integrated with geographical projections using [geonet](https://github.com/esteinig/geonet) and [Shiny](http://shiny.rstudio.com/).
+
+Bug fix in matrix calculations may affect network topologies, please use the updated version NetView v.1.1.
 
 ###Quick Start
 ---

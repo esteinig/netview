@@ -19,6 +19,9 @@ mkNNG <- function(mdist=NULL, range.k=NULL, mst=FALSE, options=netview.getOption
     
     require(cccd)
     
+    # See original source code of SPC algorithm implemented in SPIN
+    # Neuditschko et al. (2012)
+    
     mknn_graph <- nng(mdist, k=i, mutual=T, algorithm=mknn.algorithm)
     
     V(mknn_graph)$name <- seq(length(V(mknn_graph)))

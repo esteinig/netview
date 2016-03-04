@@ -2,7 +2,7 @@ Package: netview
 Title: Mutual k-Nearest-Neighbour Networks for Population Analysis
 Version: 1.0
 Authors@R: person("Eike J.", "Steinig", email = "eikejoachim.steinig@my.jcu.edu.au", role = c("aut", "cre"))
-Description: NetView generates mutual k-nearest-neighbour networks for the analysis of genetic population structure. Visualization capabiliities and community detection analyses are also included, as well as convenience functions for running and visualizing output from Admixture.
+Description: NetView generates mutual k-nearest-neighbour networks for the analysis of genetic population structure. Visualization capabilities and community detection analyses are included. In addition, the package includes methods for the calculation of genetic contribution scores, as well as convenience functions for running and visualizing output from Admixture with NetView.
 Depends:
     R (>= 3.2.2)
 License: GPL-3
@@ -17,5 +17,6 @@ Imports:
 	gplots (>= 2.1),
 	reshape2 (>= 1.4.1),
 	RColorBrewer (>= 1.1),
-	ggplot2 (>= 1.0.1)
+	ggplot2 (>= 1.0.1),
+	paran (>= 1.5.1)
 

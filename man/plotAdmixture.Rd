@@ -4,7 +4,7 @@
 \alias{plotAdmixture}
 \title{Admixture Plots}
 \usage{
-plotAdmixture(qFile="oyster.4.Q", metaData=oysterData, graph=NULL, structurePlot=T, palette="Dark2", colourN=8)
+plotAdmixture(qFile="oyster.4.Q", metaData=oysterData, graph=NULL, palette="Dark2", colourN=8, structurePlot=TRUE, save=FALSE)
 }
 \arguments{
 \item{qFile}{Output file for ancestry proportions from Admixture (.Q)}
@@ -13,11 +13,15 @@ plotAdmixture(qFile="oyster.4.Q", metaData=oysterData, graph=NULL, structurePlot
 
 \item{graph}{Network object iGraph for generating Admixture Graph [ graph, NULL ]}
 
-\item{structurePlot}{Generate admixture proportion bar plot using Structure Plot [ bool, TRUE ]}
+\item{options}{NetView options for specification of columns in metaData [ netviewOptions() ]}
 
 \item{palette}{Colour palette from RColorBrewer or vector of colours (length K) [ str, "Dark2" ]}
 
 \item{colourN}{Number of colours to include in palette, see RColorBrewer [ int, 8 ]}
+
+\item{structurePlot}{Generate admixture proportion bar plot using Structure Plot [ bool, TRUE ]}
+
+\item{save}{Name of to save ancestry file in working directory with column ID for input to Cytoscape [ str, NULL ]}
 }
 \value{
 Graph object with data for plotting admixture proportions or bar plot from Structure Plot.
