@@ -6,7 +6,7 @@ We decided to move away from Python to enable a more user-friendly access to the
 
 For an introduction to the analysis of genetic population structure with NetView, see the [Pearl Oyster Tutorial](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md).
 
-If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. 
+If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. Please not that this repository is still under development and is not the published version. NetView for Python is available [here](https://github.com/esteinig/NetViewP).
 
 ###Installation
 ---
