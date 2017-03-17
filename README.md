@@ -8,7 +8,7 @@ For an introduction to the analysis of genetic population structure with NetView
 
 If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. Please not that this repository is still under development and is not the published version. NetView for Python is available [here](https://github.com/esteinig/NetViewP).
 
-###Installation
+### Installation
 ---
 
 ```r
@@ -16,7 +16,7 @@ require("devtools")
 install_github("esteinig/netview")
 ```
 
-###Dependencies
+### Dependencies
 ---
 
 [RStudio]() is highly recommended. The pipeline depends on some great code from the community:
@@ -34,7 +34,7 @@ install_github("esteinig/netview")
 
 You can install single dependencies with `install.packages(...)` or use the convenience function `installNetView()` to install all packages for NetView.
 
-###Versions
+### Versions
 ---
 
 *NetView v.1.1*
@@ -47,7 +47,7 @@ We have removed the user-interface version NetView R. It will be updated and int
 
 Bug fix in matrix calculations may affect network topologies, please use the updated version NetView v.1.1.
 
-###Quick Start
+### Quick Start
 ---
 
 ```r
@@ -67,7 +67,7 @@ graphCommunities <- netview(oysterMatrix, oysterData, k=1:60, cluster=TRUE, opti
 selectionPlot <- plotSelection(graphCommunities, options=oysterOptions)
 ```
 
-###NetView
+### NetView
 ---
 
 Network construction, analysis and visualization is accessible via `netview` ( `?netview` ):
@@ -77,12 +77,12 @@ netview(distMatrix, metaData, k=10:60, tree= NULL, cluster=FALSE, mst=FALSE,
         networkD3=FALSE, save=FALSE, project="netview", options=netviewOptions())
 ```
 
-######Returns:
+###### Returns:
 
 * List of network objects in the given range of *k* (`ǹetworkD3 = FALSE`)
 * Network plots with D3 (`networkD3 = TRUE`)
 
-######Parameters:
+###### Parameters:
 
 ```
 distMatrix      matrix, symmetrical distance matrix (N x N)
@@ -102,18 +102,18 @@ project         character, directory name in cwd and prefix for saving networks 
 options         list, list of options from netviewOptions(...)
 ```
 
-####Input
+#### Input
 ---
 
-######Quality Control
+###### Quality Control
 
 Shared missing data can introduce artifical similarity between samples when calculating distance matrices from SNPs. We would recommend a missing rate < 10% per sample across SNPs, which can be implemented, through quality control functions as implemented, for instance, in [PLINK](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml). Likewise, very short or long branch lengths in a phylogeny can introduce artificial similarity during the nearest neighbour search on a cophenetic distance matrix and we recommend to remove such branches prior to network construction. Homogenous sample population sizes are recommended (Neuditschko et al. 2012).
 
-######Distance Matrix
+###### Distance Matrix
 
 Main input is a symmetrical genetic distance matrix (N x N) using your preferred distance measure. The choice of distance measure is crucial for selecting nearest neighbours to construct the mkNNG. Depending on the purpose of your study, you can, for example, construct simple allele-sharing distances in PLINK, cophenetic distances from a phylogeny (e.g. `cophenetic.phylo()` from [ape](http://ape-package.ird.fr/) in R) or simple Hamming distance over an alignment of SNPs. The matrix input is less specific than the original SNP input in NetView P and allows for flexibility in the type of data (haploid, diploid, genetic or ecologigal data, distance measures) for construction of the mkNNGs.
 
-######Data Frame
+###### Data Frame
 
 The data frame contains at minimum three named columns of meta data for each sample (node) in the matrix: 
 
@@ -123,7 +123,7 @@ The data frame contains at minimum three named columns of meta data for each sam
 
 Colour and group attributes can be used to highlight associated data in the network representation, but are not required for the algorithm to construct the mkNNG. For instance, one could assign colour and population attributes to compare the final genetic structure to the sample populations or geographical locations. Samples in the data frame must be in the same order and number as the rows in the matrix.
 
-####Options
+#### Options
 ---
 
 Network construction, plots and visualizations can be configured via `netviewOptions` ( `?netviewOptions` ):
@@ -151,7 +151,7 @@ selectionTitle       character, title for selection ggPlot ["K Selection mkNNGs"
 For additional options to configure algorithms and the visualization with networkD3, please see manual pages ( ?netview )
 ```
 
-####Accessory Functions
+#### Accessory Functions
 ---
 
 The following function are designed to process output from NetView and Admixture. Please see the manual pages or tutorials for usage.
@@ -166,7 +166,7 @@ plotAdmixture(qFile, metaData, graph=NULL, structurePlot=FALSE, palette="Dark2",
 findKeyContributors(relMatrix, metaData, paranIterations=100, paranCentile=99, distMatrix=FALSE, verbose=TRUE)
 ```
 
-####Algorithms
+#### Algorithms
 ---
 
 *Under development...*
@@ -174,27 +174,13 @@ findKeyContributors(relMatrix, metaData, paranIterations=100, paranCentile=99, d
 * [Background 1: Mutual k-Nearest-Neighbour Graphs]()
 * [Background 2: Community-detection algorithms in iGraph]()
 
-####Tutorials and Examples
+#### Tutorials and Examples
 ---
 
 * [Tutorial 1: Pearl Oyster](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md)
 
-*Under development...*
-
-* [Tutorial 2: MRSA]()
-* [Recipe 1: Community Analysis]()
-* [Recipe 2: Admixture Networks]()
-* [Recipe 3: Geographical Networks]()
-* [Recipe 4: Ecological Networks]()
-* [Gallery]()
-
-####Further Reading, Links and References
+#### References
 ---
-
-*Under development...*
-
-* [Links]()
-* [Reading List]()
 
 If you use the package for publication, please cite:
 
@@ -209,7 +195,7 @@ We adopted code from [Structure Plot](http://btismysore.in/strplot/) with permis
 
 * [Ramasamy et al. (2014) - Structure Plot: a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
 
-####Contact
+#### Contact
 ---
 
 * eikejoachim.steinig@my.jcu.edu.au
