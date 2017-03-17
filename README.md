@@ -153,14 +153,6 @@ plotAdmixture(qFile, metaData, graph=NULL, structurePlot=FALSE, palette="Dark2",
 findKeyContributors(relMatrix, metaData, paranIterations=100, paranCentile=99, distMatrix=FALSE, verbose=TRUE)
 ```
 
-#### Algorithms
----
-
-*Under development...*
-
-* [Background 1: Mutual k-Nearest-Neighbour Graphs]()
-* [Background 2: Community-detection algorithms in iGraph]()
-
 #### Tutorials and Examples
 ---
 
