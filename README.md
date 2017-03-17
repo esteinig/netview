@@ -19,20 +19,7 @@ install_github("esteinig/netview")
 ### Dependencies
 ---
 
-[RStudio]() is highly recommended. The pipeline depends on some great code from the community:
-
-* [ape](http://ape-package.ird.fr/)
-* [cccd](https://cran.r-project.org/web/packages/cccd/index.html)
-* [paran](https://cran.r-project.org/web/packages/paran/index.html)
-* [igraph](http://igraph.org/r/)
-* [gplots](https://cran.r-project.org/web/packages/gplots/index.html)
-* [ggplot2](http://ggplot2.org/)
-* [reshape2](https://github.com/hadley/reshape)
-* [networkD3](https://christophergandrud.github.io/networkD3/)
-* [htmlwidgets](http://www.htmlwidgets.org/)
-* [RColorBrewer](https://cran.r-project.org/web/packages/RColorBrewer/index.html)
-
-You can install single dependencies with `install.packages(...)` or use the convenience function `installNetView()` to install all packages for NetView.
+[RStudio]() is highly recommended. Dependencies should be installed upon download, you can also use the convenience function `installNetView()` to install all packages for NetView.
 
 ### Versions
 ---
