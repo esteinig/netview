@@ -6,7 +6,7 @@ We decided to move away from Python to enable a more user-friendly access to the
 
 For an introduction to the analysis of genetic population structure with NetView, see the [Pearl Oyster Tutorial](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md).
 
-If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. Please not that this repository is still under development and is not the published version. NetView for Python is available [here](https://github.com/esteinig/NetViewP).
+If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. Please not that this repository is still under development and is not the published version.
 
 ### Installation
 ---
@@ -28,7 +28,7 @@ install_github("esteinig/netview")
 
 Core calculations in the pipeline are identical to the methods described in the publication for [NetView P](https://github.com/esteinig/netviewP).
 
-For the original Python implementation see [netviewP](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the current implementation in R.
+For the original Python implementation see the repository for [NetView P](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the current implementation in R.
 
 We have removed the user-interface version NetView R. It will be updated and integrated with geographical projections using [geonet](https://github.com/esteinig/geonet) and [Shiny](http://shiny.rstudio.com/).
 
@@ -120,7 +120,7 @@ defaultOptions <- netviewOptions()
 optionsExample <- netviewOptions(mknnWeights=TRUE, nodeGroup="Population", nodeID="ID", nodeColour="Colour")
 ```
 
-######Parameters:
+###### Parameters:
 
 ```
 nodeID               character, name of column in data frame containing sample IDs ["ID"]
