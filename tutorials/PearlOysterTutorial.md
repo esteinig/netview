@@ -9,7 +9,7 @@
 * Selecting mkNNGs and Communities
 * Admixture Networks
 
-######Data
+###### Data
 ---
 
 The data used for this tutorial is from our initial analysis of 83 pearl oysters from Aru Islands, Bali and West Papua. The data files can be loaded via the data function in R. For our purposes, the oyster data demonstrates the basic workflow of NetView R. Not all data may be appropriate for analysis, please see the **`Input`** section in the README.
@@ -23,7 +23,7 @@ The data used for this tutorial is from our initial analysis of 83 pearl oysters
 
 Shared-allele distance matrix via `--distance-matrix` in PLINK.
 
-######Loading Data for NetView
+###### Loading Data for NetView
 ---
 
 Let's get started and load the data frame and the distance matrix from the package data:
@@ -40,7 +40,7 @@ Have a look at oysterMatrix and oysterData. The rows in the distance matrix are 
 oysterOptions <- netviewOptions(selectionTitle="Oyster k-Selection", nodeID="ID", nodeGroup="Group", nodeColour="Colour", communityAlgorithms=c("Walktrap", "Infomap", "Fast-Greedy"))
 ```
 
-######NetView R
+######N etView R
 ---
 
 Before we run the final networks, we want to know an appropriate value for k, which defines the maximum number of mutual nearest neighbours that can be connected by edges during construction of the mkNNG. The choice of an optimal value of k is still a challenge (Neuditschko et al. 2012). Essentially, we are looking for a network topology within the possible range of mkNNGs that represents the genetic similarity of isolates at an appropriate level of resolution on the genetic structure in the data, depending on your question and application of your data. We also want to avoid the selection of a network that has very little information on population-wide structure. 
@@ -72,7 +72,7 @@ The plot is representative of the 'zoom' effect discussed by Neuditschko et al. 
 
 ![](https://github.com/esteinig/netview/blob/master/img/Oyster_Panel2.png)
 
-######Network Visualizations
+###### Network Visualizations
 ---
 
 Now that we have a list of the networks, let's visualize them - there are two great libraries we will use for graph-analysis and -visualization in R: the comprehensive analysis library [iGraph]() and the [D3]()-based visualizations from [networkD3](). In iGraph, you can basically do anything related to graph objects (as returned by our first run), including plotting, community-detection, edge analysis and so on. D3 is a magnificent toolkit to generate interactive data-driven visualizations as implemented for graphs in networkD3. The visualizations may be computationally intensive for very large graphs. For presnetation, you can save them as HTML using `save = TRUE`. 
@@ -107,7 +107,7 @@ graphsD3$k10
 
 Hover over nodes to see their ID and play around with the force-directed layout, it's fun to watch! You can check the documentation (`?netview` and `?networkD3`) for more parameters to adjust the network visualizations in `netviewOptions`.
 
-######Selecting networks and cluster configurations from mkNNGs
+###### Selecting networks and cluster configurations from mkNNGs
 ---
 
 How do we select the *right* configuration of the mkNNG? Unfortunately, there is no one-value-fits-it-all solution (a succinct and applicable comment on cluster selection can be found in the [DAPC Tutorial]() by Thibaut Jombart). Instead, the selection of an appropriate topology and community-resolution depends on what we ask from our data. 
@@ -131,7 +131,7 @@ plot(graphs$k5, vertex.size=7, vertex.label=NA, mark.groups=communities(graphs$k
 
 At k = 40, two communities are evident, corresponding to an admixed Bali and West-Papua, and a separate population at Aru Islands. A subgroup from West-Papua clusters out at k = 40 , while at k = 25, the genetically distinct population of West-Papua separates mostly from Bali. However, a few individuals from West-papua still cluster distinctly with Bali, suggesting admixture between the two populations - we will investigate this further using the program Admixture (see below). At k = 10, this pattern is expressed more strongly, and we can see a distinct singleton oyster from Aru Island. A progressive dissolution of the network can be observed at lower values of the parameter (e.g. k = 5) as indicated in the selectio nplot and should not be used for analysis
 
-######Admixture Networks
+###### Admixture Networks
 ---
 
 An alternative approach to selecting an appropriate parameter value, would be to run supplementary analyses with other established methods such as [Admixture](). This allows you to select an optimal configuration according to the software's methods and you can then use this cluster assignment find a network topology where the selected algorithm finds an equal number of clusters. You can also visualize the proportion results from your admixture analysis as pie nodes to compare to your selected mkNNG.
