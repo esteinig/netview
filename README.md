@@ -1,6 +1,6 @@
 # NetView
 
-![](https://github.com/esteinig/netview/blob/master/img/Oyster_GCS.jpeg)
+![](https://github.com/esteinig/netview/blob/master/img/NetView_Cover.png)
 
 NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The main implementation of the pipeline is now availabe in R. 
 
