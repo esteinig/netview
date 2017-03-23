@@ -1,5 +1,7 @@
 # NetView
 
+![](https://github.com/esteinig/netview/blob/master/img/Oyster_GCS.jpeg)
+
 NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The main implementation of the pipeline is now availabe in R. 
 
 We decided to move away from Python to enable a more user-friendly access to the main command-line functions, interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). 
