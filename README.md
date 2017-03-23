@@ -1,7 +1,5 @@
 # NetView
 
-![](https://github.com/esteinig/netview/blob/master/img/NetView_Cover.png)
-
 NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The main implementation of the pipeline is now availabe in R. 
 
 We decided to move away from Python to enable a more user-friendly access to the main command-line functions, interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). 
@@ -177,6 +175,12 @@ If you use [Admixture](https://www.genetics.ucla.edu/software/admixture/), pleas
 We adopted code from [Structure Plot](http://btismysore.in/strplot/) with permission from Ramasamy et al. for the visualization of results from Admixture. If you use the plots for publication, please cite:
 
 * [Ramasamy et al. (2014) - Structure Plot: a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
+
+#### Examples
+
+![](https://github.com/esteinig/netview/blob/master/img/Oyster_GCS.jpeg)
+![](https://github.com/esteinig/netview/blob/master/img/NetView_Cover.png)
+
 
 #### Contact
 ---
