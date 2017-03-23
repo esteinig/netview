@@ -177,9 +177,9 @@ We adopted code from [Structure Plot](http://btismysore.in/strplot/) with permis
 * [Ramasamy et al. (2014) - Structure Plot: a program for drawing elegant STRUCTURE bar plots in user friendly interface - Springerplus](http://www.springerplus.com/content/3/1/431)
 
 #### Examples
+---
 
 ![](https://github.com/esteinig/netview/blob/master/img/Oyster_GCS.jpeg)
-![](https://github.com/esteinig/netview/blob/master/img/NetView_Cover.png)
 
 
 #### Contact
