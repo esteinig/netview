@@ -155,7 +155,7 @@ plotAdmixture(qFile, metaData, graph=NULL, structurePlot=FALSE, palette="Dark2",
 findKeyContributors(relMatrix, metaData, paranIterations=100, paranCentile=99, distMatrix=FALSE, verbose=TRUE)
 ```
 
-#### Tutorials and Examples
+#### Tutorials
 ---
 
 * [Tutorial 1: Pearl Oyster](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md)
