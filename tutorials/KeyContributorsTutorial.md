@@ -2,7 +2,7 @@
 
 ![](https://github.com/esteinig/netview/blob/master/img/GCS_Flow.png)
 
-This tutorial implements the workflow described in [Neuditschko et al. 2016](), which determine the genetic contribution of individuals within populations using a relationship matrix and its Eigen Value Decomposition (EVD). In combination with the network visualization from NetView and the computation of ancestry porportions with Admixture, this approach can help to select key contributors for informed management decisions in conservation genetics and animal breeding applications. 
+This tutorial implements the workflow described in [Neuditschko et al. 2017](), which determine the genetic contribution of individuals within populations using a relationship matrix and its Eigen Value Decomposition (EVD). In combination with the network visualization from NetView and the computation of ancestry porportions with Admixture, this approach can help to select key contributors for informed management decisions in conservation genetics and animal breeding applications. 
 
 Here, we focus on the implementation and usage of the method, rather than its mathematical foundation and interpretation which are described in detail in the publication. We will use three data sets to exemplify the workflow: pearl oysters (since computation is fast and the example data is included in NetView), simulated populations and highly structured experimental sheep populations (both from the publication with data files [available](https://github.com/esteinig/netview/blob/master/files) in the repository for NetView).
 
@@ -10,7 +10,7 @@ The determination of the genetic contribution scores (GCS) is very simple using 
 
 ---
 
-####Pearl Oysters
+#### Pearl Oysters
 
 The data used for this part is from our initial analysis of 83 pearl oysters from Aru Islands, Bali and West Papua. The data files can be loaded via the data function in R. For our purposes, the oyster data demonstrates the basic workflow of calculating GCS and visualizing key contributors with NetView.
 
@@ -25,7 +25,7 @@ Shared-allele distance matrix via `--distance-matrix` in PLINK.
 
 [Data files for Admixture](https://github.com/esteinig/netview/blob/master/files)
 
-######Dependencies
+###### Dependencies
 
 * `netview`
 * `scales`
