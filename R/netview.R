@@ -34,7 +34,6 @@ netview <- function(distMatrix=NULL, metaData=NULL, tree=NULL, k=10:60, cluster=
   
   require(igraph)
   require(cccd)
-  require(networkD3)
   require(htmlwidgets)
   require(ape)
   require(gplots)
