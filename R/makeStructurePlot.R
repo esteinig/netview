@@ -60,19 +60,20 @@ makeStructurePlot <- function(qDF, metaData, colours, options) {
   ########
   panel<-theme(panel.background = element_rect(fill = "transparent",colour = NA), panel.grid.minor = element_blank(), panel.grid.major = element_blank(),
                plot.background = element_rect(fill = "transparent",colour = NA))
-  yaxis<-theme(axis.text.y = element_text(colour="black",size=0.5))
+  yaxis<-theme(axis.text.y = element_blank(), axis.ticks.y=element_blank())
   xaxis<-theme(axis.ticks.x=element_blank(), axis.title.x=element_blank(), axis.text.x=element_blank(), legend.position="none")
-  xxaxis<-theme(axis.ticks.x=element_blank(),axis.text.x = element_text(colour="black", angle=0, hjust=0), legend.position="none")
+  xxaxis<-theme(axis.ticks.x=element_blank(), axis.text.x = element_text(colour="black", angle=0, hjust=0), legend.position="none")
   
   pal <- colours
-  bar_colour <- 'black'
+  bar_colour <- alpha('black', 0.5)
   
   gb<-tapply(as.numeric(dat1$id), dat1$GROUP, 
              function(x) levels(dat1$id[])[floor(median(x))])
-  p<-ggplot(data=dat1, aes(x=id, y=value, fill=variable))+ geom_bar(stat="identity", width=1, colour=bar_colour)+  scale_y_continuous(expand = c(0,0))+ 
+			 
+  p<-ggplot(data=dat1, aes(x=id, y=value, fill=variable))+ geom_bar(stat="identity", width=1, size=0.1, colour=bar_colour)+  scale_y_continuous(expand = c(0,1))+ 
     scale_fill_manual(values = pal)
   q<-p+ panel + xlab("")+ylab("") + yaxis+ xxaxis+
-    scale_x_discrete(breaks=gb, labels=names(gb)) 
+    scale_x_discrete(breaks=NULL, labels=NA) 
   
   return(q)
 }

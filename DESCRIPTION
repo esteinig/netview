@@ -11,7 +11,6 @@ RoxygenNote: 5.0.1
 Imports:
 	igraph (>= 1.0.1),
 	cccd (>= 1.5),
-	networkD3 (>= 0.2.6),
 	ape (>= 3.3),
 	htmlwidgets (>= 0.5),
 	gplots (>= 2.1),
