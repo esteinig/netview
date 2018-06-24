@@ -4,7 +4,7 @@ NetView is a pipeline for the analysis of genetic structure using mutual k-neare
 
 We decided to move away from Python to enable a more user-friendly access to the main command-line functions, interface integration with [Shiny](http://shiny.rstudio.com/) and visualization of the networks with [networkD3](https://christophergandrud.github.io/networkD3/). 
 
-Please note that the method is primarily designed for the *visualization* of population structure and does not have the same rigorous statistical backbone as other model-based approaches, such as Admixture or Structure. It is therefore recommended to use the networks as a tool to understand and visualize genomic data across the genetic structure inferred from population genetic (and phylogenetic) analyses or supported by independent data (e.g. pedigrees). We are expanding the scope of this package to better accommodate this approach, including a novel workflows to detect key contributors (in review), visualize admixture proportions and map samples in a geospatial framework powered by [GlobeJS](https://github.com/bwlewis/rthreejs) and [Leaflet](http://leafletjs.com/)
+Please note that the method is primarily designed for the *visualization* of population structure and does not have the same rigorous statistical backbone as other model-based approaches, such as Admixture or Structure. It is therefore recommended to use the networks as a tool to understand and visualize genomic data across the genetic structure inferred from population genetic (and phylogenetic) analyses or supported by independent data (e.g. pedigrees). We are expanding the scope of this package to better accommodate this approach, including a novel workflows to [detect key genetic contributors](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177638) (Neuditschko et al. 2017), visualize admixture proportions and map samples in a geospatial framework powered by [GlobeJS](https://github.com/bwlewis/rthreejs) and [Leaflet](http://leafletjs.com/)
 
 For an introduction to the analysis and visualization of population structure with NetView, see the [Pearl Oyster Tutorial](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md). 
 
@@ -141,6 +141,21 @@ selectionTitle       character, title for selection ggPlot ["K Selection mkNNGs"
 
 For additional options to configure algorithms and the visualization with networkD3, please see manual pages ( ?netview )
 ```
+
+#### Key Contributors
+---
+
+Please see our publication for a detailed description of the process: [Neuditschko et al. 2017 - Identification of key contributors in complex population structures](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0177638). From the abstract:
+
+```
+Based on the Eigenvalue Decomposition (EVD) of a genomic relationship matrix we describe a novel approach to evaluate the genetic contribution of individuals to population structure. We combined the identification of key contributors with model-based clustering and population network visualization into an integrated three-step approach, which allows identification of high-resolution population structures and substructures around such key contributors.
+```
+
+Implemented as part of NetView using the accessory function:
+
+`findKeyContributors(relMatrix, metaData, paranIterations=100, paranCentile=99, distMatrix=FALSE, verbose=TRUE)`
+
+Please note that the default input should be a relationship matrix or a distance matrix which will be converted to a relationship matrix by `1 - distance` and requires the flag `distMatrix`. We provide a [tutorial](https://github.com/esteinig/netview/blob/master/tutorials/KeyContributorsTutorial.md) for detecting and visualizing key contributors with NetView.
 
 #### Accessory Functions
 ---
