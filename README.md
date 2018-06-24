@@ -8,7 +8,13 @@ Please note that the method is primarily designed for the *visualization* of pop
 
 For an introduction to the analysis and visualization of population structure with NetView, see the [Pearl Oyster Tutorial](https://github.com/esteinig/netview/blob/master/tutorials/PearlOysterTutorial.md). 
 
-If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. Please note that this repository is still under development and is not the published version of NetView P.
+If you find any bugs or would like to contribute, feel free to contact us or use the issues function on GitHub. Please note that this repository is still under development and is not the published version of NetView P. However, core calculations in the pipeline are identical to the methods described in the publication for NetView P.
+
+If you use the package for publication, please cite:
+
+* [Neuditschko et al. (2012) - NetView - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
+* [Steinig et al. (2015) - NetView P - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
+
 
 ### Installation
 ---
@@ -28,13 +34,9 @@ install_github("esteinig/netview")
 
 *NetView v.1.1*
 
-Core calculations in the pipeline are identical to the methods described in the publication for [NetView P](https://github.com/esteinig/netviewP).
-
 For the original Python implementation see the repository for [NetView P](https://github.com/esteinig/netviewP). This version will be discontinued, but source code will still be available. We recommend using the current implementation in R.
 
 We have removed the user-interface version NetView R. It will be updated and integrated with geographical projections using [geonet](https://github.com/esteinig/geonet) and [Shiny](http://shiny.rstudio.com/).
-
-Bug fix in matrix calculations may affect network topologies, please use the updated version NetView v.1.1.
 
 ### Quick Start
 ---
@@ -162,11 +164,6 @@ findKeyContributors(relMatrix, metaData, paranIterations=100, paranCentile=99, d
 
 #### References
 ---
-
-If you use the package for publication, please cite:
-
-* [Neuditschko et al. (2012) - NetView - PLoS One](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0048375)
-* [Steinig et al. (2015) - NetView P - Molecular Ecology Resources](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12442/abstract)
 
 If you use [Admixture](https://www.genetics.ucla.edu/software/admixture/), please cite:
 
