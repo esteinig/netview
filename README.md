@@ -1,9 +1,9 @@
 # NetView
 
-![](https://img.shields.io/badge/cran-available-green.svg)
-![](https://img.shields.io/badge/conda-available-green.svg)
-![](https://img.shields.io/badge/docker-available-green.svg)
-![](https://img.shields.io/badge/docs-latest-green.svg)
+![](https://img.shields.io/badge/cran-available-orange.svg)
+![](https://img.shields.io/badge/conda-available-orange.svg)
+![](https://img.shields.io/badge/docker-available-orange.svg)
+![](https://img.shields.io/badge/docs-latest-orange.svg)
 ![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
 
 NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The main implementation of the pipeline is now availabe in R. 
