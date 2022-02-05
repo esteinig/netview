@@ -1,9 +1,14 @@
 # NetView
 
-![](https://img.shields.io/badge/cran-available-orange.svg)
-![](https://img.shields.io/badge/conda-available-orange.svg)
-![](https://img.shields.io/badge/docs-latest-green.svg)
-![](https://img.shields.io/badge/lifecycle-maturing-blue.svg)
+**NETVIEW UPDATE 2022**
+
+It has been a while since we updated the software. In line with its original purpose - the visualization of metadata across population structure using population graphs - we have implemented a new version with `tidyverse`-like syntax: https://github.com/esteinig/netviewr
+
+Construction of the underlying population graph and selection of suitable k-nearest-neighbour thresholds is integrated, and hopefully it is somewhat easier to use the pipeline going from distance matrices to suitable population network visualizations.
+
+**NETVIEW UPDATE 2022**
+
+## NetViewR
 
 NetView is a pipeline for the analysis of genetic structure using mutual k-nearest neighbour graphs (mkNNGs). The main implementation of the pipeline is now availabe in R. 
 
